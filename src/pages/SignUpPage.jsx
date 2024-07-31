@@ -145,7 +145,7 @@ const SignUpPage = () => {
               Password
               <input
                 id="password"
-                type="text"
+                type="password"
                 required
                 className="border-2 block"
                 onChange={handleChange}
@@ -157,8 +157,8 @@ const SignUpPage = () => {
             <label htmlFor="confirmPassword">
               Confirm Password
               <input
+                type="password"
                 id="confirmPassword"
-                type="text"
                 required
                 className="border-2 block"
               />
