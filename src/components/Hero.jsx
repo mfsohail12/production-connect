@@ -20,7 +20,7 @@ const Hero = () => {
             project. Focus on your vision while we handle the connections.
           </p>
           <NavLink
-            to="/login"
+            to="/sign-up"
             className="text-2xl font-bold p-3 rounded-lg bg-orange-500"
           >
             Get Started

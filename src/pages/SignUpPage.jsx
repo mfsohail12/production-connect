@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
-import EditorSignUp from "../components/EditorSignUp";
-import ClientSignUp from "../components/ClientSignUp";
 
 const SignUpPage = () => {
   const [clientActive, setClientActive] = useState(true);
