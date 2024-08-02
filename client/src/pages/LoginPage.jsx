@@ -1,6 +1,33 @@
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import axios from "axios";
 
 const LoginPage = () => {
+  const [loginData, setLoginData] = useState({
+    email: "",
+    password: "",
+  });
+  const [loginError, setLoginError] = useState("");
+
+  // Handles changes on login input fields
+  function handleChange(event) {
+    const { name, value } = event.target;
+
+    setLoginData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    axios
+      .post("http://localhost:8080/users/login", loginData)
+      .then((res) => console.log(res.data))
+      .catch((error) => setLoginError(error.response.data));
+  }
+
   return (
     <div className="h-screen w-screen flex justify-center items-center">
       <div
@@ -12,13 +39,20 @@ const LoginPage = () => {
             Production Connect
           </h1>
         </NavLink>
-        <form id="signUpForm" className="w-5/6 flex flex-col gap-5 mt-7">
+        <form
+          id="signUpForm"
+          className="w-5/6 flex flex-col gap-5 mt-7"
+          onSubmit={handleSubmit}
+        >
           <label htmlFor="email" className="w-full">
             Email Address
             <input
               id="email"
               type="text"
               className="border-2 block w-full indent-1.5 p-[2px] mt-1"
+              name="email"
+              value={loginData.email}
+              onChange={handleChange}
             />
           </label>
           <label htmlFor="password" className="w-full">
@@ -27,6 +61,9 @@ const LoginPage = () => {
               id="password"
               type="password"
               className="border-2 block w-full indent-1.5 p-[2px] mt-1"
+              name="password"
+              value={loginData.password}
+              onChange={handleChange}
             />
           </label>
 
@@ -40,6 +77,11 @@ const LoginPage = () => {
             Sign up
           </NavLink>
         </p>
+        {loginError && (
+          <div className="mt-4 w-1/2 bg-red-200 text-sm p-3 rounded-lg text-center border-red-600 border-2">
+            {loginError}
+          </div>
+        )}
       </div>
     </div>
   );

@@ -28,7 +28,7 @@ app.post("/users", async (req, res) => {
       password: hashedPassword,
     };
     users.push(user);
-    res.status(201).send();
+    res.status(201).send("Account created successfully");
   } catch {
     res.status(500).send();
   }
@@ -37,15 +37,15 @@ app.post("/users", async (req, res) => {
 app.post("/users/login", async (req, res) => {
   const user = users.find((user) => user.email === req.body.email);
 
-  if (user === null) {
-    return res.status(400).send("Cannot find user");
+  if (user == null) {
+    return res.status(400).send("Invalid login credentials");
   }
 
   try {
     if (await bcrypt.compare(req.body.password, user.password)) {
-      res.send("Success");
+      res.send("Login Successsful");
     } else {
-      res.send("Not allowed");
+      res.send("Invalid login credentials");
     }
   } catch {
     res.status(500).send();
