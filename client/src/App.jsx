@@ -9,6 +9,7 @@ import HomeLayout from "./layouts/HomeLayout";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
+import axios from "axios";
 
 function App() {
   const router = createBrowserRouter(
