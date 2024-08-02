@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
+import axios from "axios";
 
 const SignUpPage = () => {
   const [clientActive, setClientActive] = useState(true);
@@ -52,12 +53,19 @@ const SignUpPage = () => {
         }));
   }
 
+  const createAccount = (accountData) => {
+    axios
+      .post("http://localhost:8080/users", accountData)
+      .then((res) => console.log(res))
+      .catch((error) => console.log(error));
+  };
+
   // Handles form submission when sign up button is clicked
   function handleSubmit(event) {
     event.preventDefault();
 
     if (formData.password === confirmPass) {
-      return navigate("/login");
+      createAccount(formData);
     } else {
       alert("Passwords do not match");
     }
