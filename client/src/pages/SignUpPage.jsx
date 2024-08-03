@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import axios from "axios";
 
 const SignUpPage = () => {
@@ -12,8 +12,6 @@ const SignUpPage = () => {
     password: "",
   });
   const [confirmPass, setConfirmPass] = useState("");
-
-  const navigate = useNavigate();
 
   // Handles activating account type button depending on which account type button is clicked
   function activateBtn(event) {
