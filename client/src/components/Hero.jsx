@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import background from "../assets/pexels-pixabay-257904.jpg";
 
 const Hero = () => {
@@ -19,12 +19,12 @@ const Hero = () => {
             top editors, saving time and ensuring the perfect fit for every
             project. Focus on your vision while we handle the connections.
           </p>
-          <NavLink
+          <Link
             to="/sign-up"
             className="text-2xl font-bold p-3 rounded-lg bg-orange-500"
           >
             Get Started
-          </NavLink>
+          </Link>
         </span>
       </span>
     </div>

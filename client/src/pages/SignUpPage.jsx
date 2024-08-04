@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
-import axios from "axios";
+import { Link } from "react-router-dom";
 
 const SignUpPage = () => {
   const [clientActive, setClientActive] = useState(true);
@@ -51,22 +50,9 @@ const SignUpPage = () => {
         }));
   }
 
-  const createAccount = (accountData) => {
-    axios
-      .post("http://localhost:8080/users", accountData)
-      .then((res) => console.log(res))
-      .catch((error) => console.log(error));
-  };
-
   // Handles form submission when sign up button is clicked
   function handleSubmit(event) {
     event.preventDefault();
-
-    if (formData.password === confirmPass) {
-      createAccount(formData);
-    } else {
-      alert("Passwords do not match");
-    }
   }
 
   return (
@@ -75,11 +61,11 @@ const SignUpPage = () => {
         id="signUpBox"
         className="w-[450px] h-[550px] shadow-lg flex flex-col items-center"
       >
-        <NavLink to="/">
+        <Link to="/">
           <h1 className="text-sky-500 text-2xl font-bold mt-9">
             Production Connect
           </h1>
-        </NavLink>
+        </Link>
         <div
           id="accountTypeSelector"
           className="w-5/6 flex justify-between my-7 text-sky-500"
@@ -178,9 +164,9 @@ const SignUpPage = () => {
         </form>
         <p className="text-sm mt-5">
           Already have an account?{" "}
-          <NavLink to="/login" className="text-sky-500">
+          <Link to="/login" className="text-sky-500">
             Login
-          </NavLink>
+          </Link>
         </p>
       </div>
     </div>

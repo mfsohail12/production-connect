@@ -1,13 +1,11 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
-import axios from "axios";
+import { Link } from "react-router-dom";
 
 const LoginPage = () => {
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
   });
-  const [loginError, setLoginError] = useState("");
 
   // Handles changes on login input fields
   function handleChange(event) {
@@ -21,11 +19,6 @@ const LoginPage = () => {
 
   function handleSubmit(event) {
     event.preventDefault();
-
-    axios
-      .post("http://localhost:8080/users/login", loginData)
-      .then((res) => console.log(res.data))
-      .catch((error) => setLoginError(error.response.data));
   }
 
   return (
@@ -34,11 +27,11 @@ const LoginPage = () => {
         id="loginBox"
         className="w-[375px] h-[425px] shadow-lg flex flex-col items-center"
       >
-        <NavLink to="/">
+        <Link to="/">
           <h1 className="text-sky-500 text-2xl font-bold mt-9">
             Production Connect
           </h1>
-        </NavLink>
+        </Link>
         <form
           id="signUpForm"
           className="w-5/6 flex flex-col gap-5 mt-7"
@@ -73,15 +66,10 @@ const LoginPage = () => {
         </form>
         <p className="text-sm mt-5">
           Don't have an account yet?{" "}
-          <NavLink to="/sign-up" className="text-sky-500">
+          <Link to="/sign-up" className="text-sky-500">
             Sign up
-          </NavLink>
+          </Link>
         </p>
-        {loginError && (
-          <div className="mt-4 w-1/2 bg-red-200 text-sm p-3 rounded-lg text-center border-red-600 border-2">
-            {loginError}
-          </div>
-        )}
       </div>
     </div>
   );
