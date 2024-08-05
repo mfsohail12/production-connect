@@ -1,7 +1,10 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const SignUpPage = () => {
+  const navigate = useNavigate();
   const [clientActive, setClientActive] = useState(true);
   const [formData, setFormData] = useState({
     accountType: "client",
@@ -9,11 +12,11 @@ const SignUpPage = () => {
     lastName: "",
     email: "",
     password: "",
+    confirmPassword: "",
   });
-  const [confirmPass, setConfirmPass] = useState("");
 
-  // Handles activating account type button depending on which account type button is clicked
-  function activateBtn(event) {
+  // Handles activating account type button
+  const activateBtn = (event) => {
     if (event.target.id === "clientBtn" && !clientActive) {
       setClientActive(true);
       setFormData((prevData) => ({
@@ -27,9 +30,9 @@ const SignUpPage = () => {
         accountType: "editor",
       }));
     }
-  }
+  };
 
-  // Sets client/editor button class depending on if it is currently active
+  // Set client/editor button class
   const clientBtnClass = clientActive
     ? "h-7 w-44 border-2 rounded-lg border-sky-500 bg-sky-500 text-white"
     : "h-7 w-44 border-2 rounded-lg border-sky-500";
@@ -38,22 +41,74 @@ const SignUpPage = () => {
     ? "h-7 w-44 border-2 rounded-lg border-sky-500 bg-sky-500 text-white"
     : "h-7 w-44 border-2 rounded-lg border-sky-500";
 
-  // Handles changes on form input fields
-  function handleChange(event) {
+  // Handle changes of state on form input fields
+  const handleChange = (event) => {
     const { name, value } = event.target;
 
-    name === "confirmPassword"
-      ? setConfirmPass(value)
-      : setFormData((prevData) => ({
-          ...prevData,
-          [name]: value,
-        }));
-  }
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
-  // Handles form submission when sign up button is clicked
-  function handleSubmit(event) {
+  // Checks if provided user data is appropriate
+  const isValid = (userData) => {
+    const { firstName, lastName, email, password, confirmPassword } = userData;
+
+    // Verify full name is provided
+    if (!firstName || !lastName) {
+      toast.error("Please provide your full name");
+      return false;
+    }
+
+    // Verify email is provided and is not previously used
+    if (!email) {
+      toast.error("Please provide an email address");
+      return false;
+    }
+
+    // Verify password is appropriate and matches with confirmation password
+    if (password.length < 6) {
+      toast.error(
+        "Please provide a password that is greater than 6 characters"
+      );
+      return false;
+    } else if (password !== confirmPassword) {
+      toast.error("Passwords do not match");
+      return false;
+    }
+
+    return true;
+  };
+
+  // Registers user when sign up button is clicked
+  const registerUser = async (event) => {
     event.preventDefault();
-  }
+
+    if (!isValid(formData)) {
+      return;
+    }
+
+    const { accountType, firstName, lastName, email, password } = formData;
+
+    try {
+      const { data } = await axios.post("/signup", {
+        accountType,
+        firstName,
+        lastName,
+        email,
+        password,
+      });
+
+      if (data.error) {
+        toast.error(data.error);
+      } else {
+        navigate("/login");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="h-screen w-screen flex justify-center items-center">
@@ -88,7 +143,7 @@ const SignUpPage = () => {
         <form
           id="signUpForm"
           className="flex flex-col items-center gap-5"
-          onSubmit={handleSubmit}
+          onSubmit={registerUser}
         >
           <span className="flex gap-3">
             <label htmlFor="firstName">
@@ -96,7 +151,6 @@ const SignUpPage = () => {
               <input
                 id="firstName"
                 type="text"
-                required
                 className="border-2 block indent-1.5 p-[2px] mt-1"
                 onChange={handleChange}
                 name="firstName"
@@ -109,7 +163,6 @@ const SignUpPage = () => {
               <input
                 id="lastName"
                 type="text"
-                required
                 className="border-2 block indent-1.5 p-[2px] mt-1"
                 onChange={handleChange}
                 name="lastName"
@@ -123,7 +176,6 @@ const SignUpPage = () => {
             <input
               id="email"
               type="email"
-              required
               className="border-2 block w-full indent-1.5 p-[2px] mt-1"
               onChange={handleChange}
               name="email"
@@ -137,7 +189,6 @@ const SignUpPage = () => {
               <input
                 id="password"
                 type="password"
-                required
                 className="border-2 block indent-1.5 p-[2px] mt-1"
                 onChange={handleChange}
                 name="password"
@@ -150,10 +201,9 @@ const SignUpPage = () => {
               <input
                 type="password"
                 id="confirmPassword"
-                required
                 className="border-2 block indent-1.5 p-[2px] mt-1"
                 name="confirmPassword"
-                value={confirmPass}
+                value={formData.confirmPassword}
                 onChange={handleChange}
               />
             </label>
