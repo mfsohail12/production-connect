@@ -36,7 +36,7 @@ const LoginPage = () => {
       } else {
         console.log(data);
         toast.success(data);
-        navigate("/sign-up");
+        navigate("/dashboard");
       }
     } catch (error) {
       console.log(error);

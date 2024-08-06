@@ -3,6 +3,7 @@ const app = express();
 const port = 8000;
 const mongoose = require("mongoose");
 const dotenv = require("dotenv").config();
+const cookieParser = require("cookie-parser");
 const auth = require("./routes/authRoutes");
 
 // Database connection
@@ -15,6 +16,7 @@ mongoose
 
 // middleware
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/", auth);

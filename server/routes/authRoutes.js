@@ -1,7 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const cors = require("cors");
-const { registerUser, loginUser } = require("../controllers/authController");
+const {
+  registerUser,
+  loginUser,
+  getProfile,
+} = require("../controllers/authController");
 
 router.use(
   cors({
@@ -10,11 +14,11 @@ router.use(
   })
 );
 
-router.get("/signup", (req, res) => {
-  res.send("this is signup");
+router.get("/", (req, res) => {
+  res.send("this is server");
 });
-
 router.post("/signup", registerUser);
 router.post("/login", loginUser);
+router.get("/profile", getProfile);
 
 module.exports = router;

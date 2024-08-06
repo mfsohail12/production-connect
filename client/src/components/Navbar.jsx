@@ -2,7 +2,7 @@ import { NavLink, Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <nav className="h-[70px] font-inter flex p-2 items-center w-screen bg-black font-bold text-lg fixed top-0 z-10">
+    <nav className="h-[70px] font-inter flex p-2 items-center w-screen bg-black font-bold text-lg sticky top-0 z-10">
       <Link to="/" className="mr-auto ml-2">
         <h1 className="text-sky-500 text-2xl">Production Connect</h1>
       </Link>
