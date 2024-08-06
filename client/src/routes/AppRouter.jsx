@@ -19,9 +19,6 @@ const AppRouter = () => {
     createRoutesFromElements(
       <>
         <Route path="/" element={<MainLayout />}>
-          <Route element={<Protected />}>
-            <Route path="/dashboard" element={<Dashboard />} />
-          </Route>
           <Route
             index
             element={<Home />}
@@ -38,7 +35,9 @@ const AppRouter = () => {
           element={<SignUp />}
           loader={async () => await isAuthenticated()}
         />
-
+        <Route element={<Protected />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
         <Route path="*" element={<NotFound />} />
       </>
     )
