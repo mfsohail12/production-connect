@@ -1,12 +1,12 @@
 import axios from "axios";
-import { createContext, useState, useLayoutEffect } from "react";
+import { createContext, useState, useEffect } from "react";
 
 export const UserContext = createContext({});
 
 export function UserProvider({ children }) {
   const [user, setUser] = useState(null);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!user) {
       axios.get("/profile").then(({ data }) => {
         setUser(data);
