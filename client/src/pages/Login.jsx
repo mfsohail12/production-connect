@@ -34,8 +34,10 @@ const LoginPage = () => {
       if (data.error) {
         toast.error(data.error);
       } else {
-        console.log(data);
-        toast.success(data);
+        localStorage.setItem("token", data.token);
+        toast.success(
+          `Logged in successfully. Welcome ${data.user.firstName}!`
+        );
         navigate("/dashboard");
       }
     } catch (error) {

@@ -103,6 +103,7 @@ const SignUpPage = () => {
       if (data.error) {
         toast.error(data.error);
       } else {
+        toast.success("Account created successfully. Please login");
         navigate("/login");
       }
     } catch (error) {
