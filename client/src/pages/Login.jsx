@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { UserContext } from "../context/userContext";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -9,6 +10,7 @@ const LoginPage = () => {
     email: "",
     password: "",
   });
+  const { setUser } = useContext(UserContext);
 
   // Handles changes on login input fields
   const handleChange = (event) => {
@@ -38,6 +40,7 @@ const LoginPage = () => {
         toast.success(
           `Logged in successfully. Welcome ${data.user.firstName}!`
         );
+        setUser(data.user);
         navigate("/dashboard");
       }
     } catch (error) {
@@ -49,7 +52,7 @@ const LoginPage = () => {
     <div className="h-screen w-screen flex justify-center items-center">
       <div
         id="loginBox"
-        className="w-[375px] h-[425px] shadow-lg flex flex-col items-center"
+        className="w-[375px] h-[425px] shadow-lg flex flex-col items-center bg-white"
       >
         <Link to="/">
           <h1 className="text-sky-500 text-2xl font-bold mt-9">

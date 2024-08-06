@@ -10,7 +10,7 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
 import NotFound from "../pages/NotFound";
-import ClientDashboard from "../pages/ClientDashboard";
+import Dashboard from "../pages/Dashboard";
 import Protected from "./Protected";
 import { isAuthenticated } from "./Helpers";
 
@@ -20,7 +20,7 @@ const AppRouter = () => {
       <>
         <Route path="/" element={<MainLayout />}>
           <Route element={<Protected />}>
-            <Route path="/dashboard" element={<ClientDashboard />} />
+            <Route path="/dashboard" element={<Dashboard />} />
           </Route>
           <Route
             index
