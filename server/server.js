@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv").config();
 const cookieParser = require("cookie-parser");
 const auth = require("./routes/authRoutes");
+const project = require("./routes/projectRoutes");
 
 // Database connection
 mongoose
@@ -20,6 +21,7 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/", auth);
+app.use("/", project);
 
 app.listen(port, () => {
   console.log(`server is running on port ${port}`);

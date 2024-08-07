@@ -69,6 +69,7 @@ const loginUser = async (req, res) => {
           id: user._id,
           firstName: user.firstName,
           lastName: user.lastName,
+          projects: user?.projects || [],
         },
         process.env.JWT_SECRET,
         {},
