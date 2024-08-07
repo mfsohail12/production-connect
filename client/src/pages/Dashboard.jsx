@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/userContext";
+import DashboardNavbar from "../components/DashboardNavbar";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ const Dashboard = () => {
 
   return (
     <div>
+      <DashboardNavbar />
       <h1>Dashboard</h1>
       {user && <h1>Welcome {user.firstName}!</h1>}
       <button onClick={logoutUser} className="border-2 border-sky-500 p-1 w-24">
