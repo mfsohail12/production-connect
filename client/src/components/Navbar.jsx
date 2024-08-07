@@ -12,7 +12,7 @@ const Navbar = () => {
       marginLeft: "15px",
     },
     bmBurgerBars: {
-      background: "#0BA5E9",
+      background: "#ffffff",
     },
     bmCrossButton: {
       width: "24px",
@@ -47,25 +47,34 @@ const Navbar = () => {
   return (
     <nav className="h-[70px] font-inter flex p-2 items-center w-screen bg-black bg-opacity-50 font-bold text-lg fixed top-0 z-10">
       <Link to="/" className="mr-auto ml-2">
-        <h1 className="text-sky-500 text-2xl">Production Connect</h1>
+        <h1 className="text-violet-600 text-2xl">Production Connect</h1>
       </Link>
       <NavLink
-        to="/sign-up"
-        className="mr-5 px-2 py-1 bg-sky-500 rounded-lg text-black hover:bg-sky-600"
-      >
-        Sign up
-      </NavLink>
-      <NavLink
         to="/login"
-        className="mr-5 px-2 border-sky-500 border-4 rounded-lg text-sky-500 hover:text-sky-600 hover:border-sky-600"
+        className="mr-5 px-2 rounded-lg text-white font-light text-md hover:text-violet-700 hover:border-violet-700"
       >
         Login
       </NavLink>
+      <NavLink
+        to="/sign-up"
+        className="mr-5 px-2 py-1 bg-violet-600 rounded-lg text-white hover:bg-violet-700"
+      >
+        Sign up
+      </NavLink>
+
       <Menu right styles={menuStyles}>
-        <Link to="/about">About</Link>
-        <Link to="/contact">Contact</Link>
-        <Link to="/faq">FAQ</Link>
-        <Link to="/testimonials">Testimonials</Link>
+        <Link to="/about">
+          <span className="hover:text-violet-600">About</span>
+        </Link>
+        <Link to="/contact">
+          <span className="hover:text-violet-600">Contact</span>
+        </Link>
+        <Link to="/faq">
+          <span className="hover:text-violet-600">FAQ</span>
+        </Link>
+        <Link to="/testimonials">
+          <span className="hover:text-violet-600">Testimonials</span>
+        </Link>
       </Menu>
     </nav>
   );

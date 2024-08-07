@@ -21,7 +21,7 @@ const Hero = () => {
           </p>
           <Link
             to="/sign-up"
-            className="text-2xl font-bold p-3 rounded-lg bg-orange-500"
+            className="text-2xl font-bold p-3 rounded-lg bg-violet-600 hover:bg-violet-700"
           >
             Get Started
           </Link>

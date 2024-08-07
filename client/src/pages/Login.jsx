@@ -55,7 +55,7 @@ const LoginPage = () => {
         className="w-[375px] h-[425px] shadow-lg flex flex-col items-center bg-white"
       >
         <Link to="/">
-          <h1 className="text-sky-500 text-2xl font-bold mt-9">
+          <h1 className="text-violet-600 text-2xl font-bold mt-9">
             Production Connect
           </h1>
         </Link>
@@ -87,13 +87,13 @@ const LoginPage = () => {
             />
           </label>
 
-          <button className="w-full mt-2 h-9 bg-sky-500 rounded-lg text-white font-bold">
+          <button className="w-full mt-2 h-9 bg-violet-600 rounded-lg text-white font-bold">
             Login
           </button>
         </form>
         <p className="text-sm mt-5">
           Don't have an account yet?{" "}
-          <Link to="/sign-up" className="text-sky-500">
+          <Link to="/sign-up" className="text-violet-600">
             Sign up
           </Link>
         </p>

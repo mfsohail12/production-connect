@@ -34,12 +34,12 @@ const SignUpPage = () => {
 
   // Set client/editor button class
   const clientBtnClass = clientActive
-    ? "h-7 w-44 border-2 rounded-lg border-sky-500 bg-sky-500 text-white"
-    : "h-7 w-44 border-2 rounded-lg border-sky-500";
+    ? "h-7 w-44 border-2 rounded-lg border-violet-600 bg-violet-600 text-white"
+    : "h-7 w-44 border-2 rounded-lg border-violet-600";
 
   const editorBtnClass = !clientActive
-    ? "h-7 w-44 border-2 rounded-lg border-sky-500 bg-sky-500 text-white"
-    : "h-7 w-44 border-2 rounded-lg border-sky-500";
+    ? "h-7 w-44 border-2 rounded-lg border-violet-600 bg-violet-600 text-white"
+    : "h-7 w-44 border-2 rounded-lg border-violet-600";
 
   // Handle changes of state on form input fields
   const handleChange = (event) => {
@@ -118,13 +118,13 @@ const SignUpPage = () => {
         className="w-[450px] h-[550px] shadow-lg flex flex-col items-center"
       >
         <Link to="/">
-          <h1 className="text-sky-500 text-2xl font-bold mt-9">
+          <h1 className="text-violet-600 text-2xl font-bold mt-9">
             Production Connect
           </h1>
         </Link>
         <div
           id="accountTypeSelector"
-          className="w-5/6 flex justify-between my-7 text-sky-500"
+          className="w-5/6 flex justify-between my-7 text-violet-600"
         >
           <button
             id="clientBtn"
@@ -209,13 +209,13 @@ const SignUpPage = () => {
               />
             </label>
           </span>
-          <button className="w-full mt-5 h-9 bg-sky-500 rounded-lg text-white font-bold">
+          <button className="w-full mt-5 h-9 bg-violet-600 rounded-lg text-white font-bold">
             Sign up
           </button>
         </form>
         <p className="text-sm mt-5">
           Already have an account?{" "}
-          <Link to="/login" className="text-sky-500">
+          <Link to="/login" className="text-violet-600">
             Login
           </Link>
         </p>
