@@ -40,8 +40,6 @@ const getProjects = async (req, res) => {
       return user;
     });
 
-    console.log(user);
-
     try {
       const projects = await Project.find({ userId: user.id });
 
