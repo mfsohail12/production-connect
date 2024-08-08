@@ -1,7 +1,7 @@
 import { NavLink, Link } from "react-router-dom";
 import { slide as Menu } from "react-burger-menu";
 
-const Navbar = () => {
+const PublicNavbar = () => {
   // Hamburger menu styling
   const menuStyles = {
     bmBurgerButton: {
@@ -80,4 +80,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default PublicNavbar;

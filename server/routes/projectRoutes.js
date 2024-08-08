@@ -1,7 +1,10 @@
 const express = require("express");
 const cors = require("cors");
 const router = express.Router();
-const { createProject } = require("../controllers/projectController");
+const {
+  createProject,
+  getProjects,
+} = require("../controllers/projectController");
 
 router.use(
   cors({
@@ -11,5 +14,6 @@ router.use(
 );
 
 router.post("/create-project", createProject);
+router.get("/projects", getProjects);
 
 module.exports = router;

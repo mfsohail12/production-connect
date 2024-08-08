@@ -1,13 +1,5 @@
 const mongoose = require("mongoose");
 
-const projectSchema = mongoose.Schema({
-  title: String,
-  description: String,
-  desiredLength: String,
-  deadline: Date,
-  phone: String,
-});
-
 const userSchema = mongoose.Schema({
   accountType: {
     type: String,
@@ -29,7 +21,6 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  projects: [projectSchema],
 });
 
 module.exports = mongoose.model("User", userSchema);

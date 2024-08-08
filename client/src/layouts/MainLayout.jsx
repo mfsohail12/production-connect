@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import Navbar from "../components/Navbar";
+import PublicNavbar from "../components/PublicNavbar";
 import DashboardNavbar from "../components/DashboardNavbar";
 import { useContext } from "react";
 import { UserContext } from "../context/userContext";
@@ -9,7 +9,7 @@ const MainLayout = () => {
 
   return (
     <>
-      {user ? <DashboardNavbar /> : <Navbar />}
+      {user ? <DashboardNavbar /> : <PublicNavbar />}
       <Outlet />
     </>
   );

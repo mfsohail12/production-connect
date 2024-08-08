@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { handleChange } from "../helpers/formHelper";
 
 const SignUpPage = () => {
   const navigate = useNavigate();
@@ -40,16 +41,6 @@ const SignUpPage = () => {
   const editorBtnClass = !clientActive
     ? "h-7 w-44 border-2 rounded-lg border-violet-600 bg-violet-600 text-white"
     : "h-7 w-44 border-2 rounded-lg border-violet-600";
-
-  // Handle changes of state on form input fields
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
 
   // Checks if provided user data is appropriate
   const isValid = (userData) => {
@@ -153,7 +144,7 @@ const SignUpPage = () => {
                 id="firstName"
                 type="text"
                 className="border-2 block indent-1.5 p-[2px] mt-1"
-                onChange={handleChange}
+                onChange={(event) => handleChange(event, setFormData)}
                 name="firstName"
                 value={formData.firstName}
               />
@@ -165,7 +156,7 @@ const SignUpPage = () => {
                 id="lastName"
                 type="text"
                 className="border-2 block indent-1.5 p-[2px] mt-1"
-                onChange={handleChange}
+                onChange={(event) => handleChange(event, setFormData)}
                 name="lastName"
                 value={formData.lastName}
               />
@@ -178,7 +169,7 @@ const SignUpPage = () => {
               id="email"
               type="email"
               className="border-2 block w-full indent-1.5 p-[2px] mt-1"
-              onChange={handleChange}
+              onChange={(event) => handleChange(event, setFormData)}
               name="email"
               value={formData.email}
             />
@@ -191,7 +182,7 @@ const SignUpPage = () => {
                 id="password"
                 type="password"
                 className="border-2 block indent-1.5 p-[2px] mt-1"
-                onChange={handleChange}
+                onChange={(event) => handleChange(event, setFormData)}
                 name="password"
                 value={formData.password}
               />
@@ -205,11 +196,14 @@ const SignUpPage = () => {
                 className="border-2 block indent-1.5 p-[2px] mt-1"
                 name="confirmPassword"
                 value={formData.confirmPassword}
-                onChange={handleChange}
+                onChange={(event) => handleChange(event, setFormData)}
               />
             </label>
           </span>
-          <button className="w-full mt-5 h-9 bg-violet-600 rounded-lg text-white font-bold">
+          <button
+            type="submit"
+            className="w-full mt-5 h-9 bg-violet-600 rounded-lg text-white font-bold"
+          >
             Sign up
           </button>
         </form>

@@ -25,7 +25,7 @@ const registerUser = async (req, res) => {
     const hashedPassword = await hashPassword(password);
 
     // Creates user in database
-    const user = await User.create({
+    await User.create({
       accountType,
       firstName,
       lastName,
@@ -69,7 +69,6 @@ const loginUser = async (req, res) => {
           id: user._id,
           firstName: user.firstName,
           lastName: user.lastName,
-          projects: user?.projects || [],
         },
         process.env.JWT_SECRET,
         {},

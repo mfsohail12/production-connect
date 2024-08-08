@@ -3,9 +3,12 @@ import { FaPlus } from "react-icons/fa";
 import { IoNotifications } from "react-icons/io5";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../context/userContext";
 
 const DashboardNavbar = () => {
   const navigate = useNavigate();
+  const { user } = useContext(UserContext);
 
   return (
     <nav className="w-screen h-[70px] bg-violet-600 flex px-6 items-center shadow-[0_5px_12.7px_3px_rgba(0,0,0,0.25)] fixed top-0 z-10">
@@ -14,7 +17,9 @@ const DashboardNavbar = () => {
           src={defaultAvatar}
           className="w-[45px] h-[45px] rounded-md object-cover"
         />
-        <p className="text-white text-sm font-bold ml-3">User Name</p>
+        <p className="text-white text-sm font-bold ml-3">
+          {user.firstName} {user.lastName}
+        </p>
         <IoMdArrowDropdown className="text-3xl text-white ml-2 self-center"></IoMdArrowDropdown>
       </div>
       <IoNotifications

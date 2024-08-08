@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { UserContext } from "../context/userContext";
+import { handleChange } from "../helpers/formHelper";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -11,16 +12,6 @@ const LoginPage = () => {
     password: "",
   });
   const { setUser } = useContext(UserContext);
-
-  // Handles changes on login input fields
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-
-    setLoginData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
 
   const loginUser = async (event) => {
     event.preventDefault();
@@ -72,7 +63,7 @@ const LoginPage = () => {
               className="border-2 block w-full indent-1.5 p-[2px] mt-1"
               name="email"
               value={loginData.email}
-              onChange={handleChange}
+              onChange={(event) => handleChange(event, setLoginData)}
             />
           </label>
           <label htmlFor="password" className="w-full">
@@ -83,11 +74,14 @@ const LoginPage = () => {
               className="border-2 block w-full indent-1.5 p-[2px] mt-1"
               name="password"
               value={loginData.password}
-              onChange={handleChange}
+              onChange={(event) => handleChange(event, setLoginData)}
             />
           </label>
 
-          <button className="w-full mt-2 h-9 bg-violet-600 rounded-lg text-white font-bold">
+          <button
+            type="submit"
+            className="w-full mt-2 h-9 bg-violet-600 rounded-lg text-white font-bold"
+          >
             Login
           </button>
         </form>
