@@ -14,7 +14,7 @@ const UserProjects = ({ setSelectedProjectId }) => {
         My Projects
       </h1>
       <div className="p-8 h-[540px] overflow-y-scroll">
-        {projects ? (
+        {projects.length > 0 ? (
           projects.map((project) => (
             <button
               key={project._id}
