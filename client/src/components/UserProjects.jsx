@@ -1,11 +1,9 @@
 import { useContext } from "react";
-import { UserContext } from "../context/userContext";
 import { useNavigate } from "react-router-dom";
 import { ProjectContext } from "../context/projectContext";
 
 const UserProjects = ({ setSelectedProjectId }) => {
   const navigate = useNavigate();
-  const { user } = useContext(UserContext);
   const projects = useContext(ProjectContext);
 
   return (
@@ -13,7 +11,7 @@ const UserProjects = ({ setSelectedProjectId }) => {
       <h1 className="w-full bg-gradient-to-r from-violet-600 to-purple-400 rounded-t-lg h-[60px] flex justify-center items-center text-2xl font-bold text-white">
         My Projects
       </h1>
-      <div className="p-8 h-[540px] overflow-y-scroll">
+      <div className="px-8 py-4 h-[548px] overflow-y-scroll">
         {projects.length > 0 ? (
           projects.map((project) => (
             <button

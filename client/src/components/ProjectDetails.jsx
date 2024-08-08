@@ -28,6 +28,9 @@ const ProjectDetails = ({ selectedProjectId }) => {
           <h2 className="text-lg text-violet-600 mb-1">Contact Information</h2>
           <p className="text-[15px]">{user?.email}</p>
           {project.phone && <p className="text-[15px] mt-1">{project.phone}</p>}
+          <button className="border-2 bg-gradient-to-r from-sky-600 to-sky-400 py-2 px-4 rounded-full text-white font-bold absolute bottom-12 right-12">
+            Connect with an Editor
+          </button>
         </>
       ) : (
         <h1 className="w-full h-full flex justify-center items-center text-2xl text-slate-500">
