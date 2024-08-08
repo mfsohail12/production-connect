@@ -11,6 +11,7 @@ import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
 import NotFound from "../pages/NotFound";
 import Dashboard from "../pages/Dashboard";
+import CreateProject from "../pages/CreateProject";
 import Protected from "./Protected";
 import { isAuthenticated } from "./Helpers";
 
@@ -24,6 +25,10 @@ const AppRouter = () => {
             element={<Home />}
             loader={async () => await isAuthenticated()}
           />
+          <Route element={<Protected />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/create-project" element={<CreateProject />} />
+          </Route>
         </Route>
         <Route
           path="/login"
@@ -35,9 +40,7 @@ const AppRouter = () => {
           element={<SignUp />}
           loader={async () => await isAuthenticated()}
         />
-        <Route element={<Protected />}>
-          <Route path="/dashboard" element={<Dashboard />} />
-        </Route>
+
         <Route path="*" element={<NotFound />} />
       </>
     )
