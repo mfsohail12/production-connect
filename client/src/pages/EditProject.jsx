@@ -1,55 +1,37 @@
 import DatePicker from "react-datepicker";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import { handleChange } from "../helpers/formHelper";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { ProjectContext } from "../context/projectContext";
 
 const CreateProject = () => {
   const navigate = useNavigate();
   const [startDate, setStartDate] = useState(new Date());
+
+  // Finds current project data to populate in form
+  const projects = useContext(ProjectContext);
+  const { projectId } = useParams();
+  const project = projects.find((project) => project._id === projectId);
   const [projectData, setProjectData] = useState({
-    title: "",
-    description: "",
-    desiredLength: "",
-    deadline: new Date(),
-    phone: "",
+    title: project?.title,
+    description: project?.description,
+    desiredLength: project?.desiredLength,
+    deadline: project?.deadline,
+    phone: project?.phone,
   });
 
-  const postProject = async (e) => {
+  const editProject = (e) => {
     e.preventDefault();
-
-    // Checks for appropriate project data
-    if (!projectData.title) {
-      toast.error("Please provide a project title");
-      return;
-    }
-
-    if (!projectData.description) {
-      toast.error("Please provide a description for your project");
-      return;
-    }
-
-    try {
-      const { data } = await axios.post("/create-project", projectData);
-
-      if (data.error) {
-        toast.error(data.error);
-      } else {
-        toast.success("Project Created");
-        navigate("/dashboard");
-      }
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   return (
     <div className="pt-24">
       <form
         className=" w-[1000px] mx-auto flex flex-col gap-6"
-        onSubmit={postProject}
+        onSubmit={editProject}
       >
         <label className="text-3xl font-bold text-slate-600">
           Project Title
@@ -124,7 +106,7 @@ const CreateProject = () => {
             type="submit"
             className="border-2 w-2/3 bg-gradient-to-r from-violet-600 to-purple-400 p-2 rounded-full text-white font-bold"
           >
-            Create Project
+            Update Project
           </button>
         </span>
       </form>

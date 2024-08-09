@@ -2,17 +2,19 @@ import { useContext } from "react";
 import { UserContext } from "../context/userContext";
 import { ProjectContext } from "../context/projectContext";
 
-const ProjectDetails = ({ selectedProjectId }) => {
+const ProjectDetails = (props) => {
   const { user } = useContext(UserContext);
   const projects = useContext(ProjectContext);
 
-  const project = projects.find((project) => project._id === selectedProjectId);
+  const project = projects.find(
+    (project) => project._id === props.selectedProjectId
+  );
 
   return (
     <div className="w-2/3 h-full shadow-[4px_4px_22.2px_2px_rgba(0,0,0,0.25)] rounded-xl p-10 overflow-x-scroll">
       {project ? (
         <>
-          <h1 className="text-3xl font-semibold mb-7 text-slate-600">
+          <h1 className="text-3xl font-semibold mb-7 text-slate-600 break-words">
             {project.title}
           </h1>
           <h2 className="text-lg text-violet-600 mb-1">Description</h2>

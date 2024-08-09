@@ -1,10 +1,14 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ProjectContext } from "../context/projectContext";
+import { MdEdit } from "react-icons/md";
+import { FaTrash } from "react-icons/fa";
+import ProjectBtn from "./ProjectBtn";
 
-const UserProjects = ({ setSelectedProjectId }) => {
+const UserProjects = (props) => {
   const navigate = useNavigate();
   const projects = useContext(ProjectContext);
+  const [active, setActive] = useState(projects[0]?._id);
 
   return (
     <div className="w-1/3 h-full shadow-[4px_4px_22.2px_2px_rgba(0,0,0,0.25)] rounded-xl">
@@ -14,13 +18,29 @@ const UserProjects = ({ setSelectedProjectId }) => {
       <div className="px-8 py-4 h-[548px] overflow-y-scroll">
         {projects.length > 0 ? (
           projects.map((project) => (
-            <button
+            <ProjectBtn
+              title={project.title}
+              active={active}
+              setActive={setActive}
               key={project._id}
-              className="w-full h-[50px] rounded-full flex indent-6 items-center text-slate-500 focus:bg-violet-200"
-              onClick={() => setSelectedProjectId(project._id)}
-            >
-              {project.title}
-            </button>
+              id={project._id}
+              selectedProjectId={props.selectedProjectId}
+              setSelectedProjectId={props.setSelectedProjectId}
+            />
+
+            // <button // passing activeIndex/setActiveIndex as prop
+            //   key={project._id}
+            //   className="w-full h-[50px] p-4 rounded-full flex justify-between items-center text-slate-500 focus:bg-violet-200"
+            //   onClick={() => setSelectedProjectId(project._id)}
+            // >
+            //   {project.title.length < 35
+            //     ? project.title
+            //     : `${project.title.slice(0, 36)}...`}
+            //   <span className="flex gap-4">
+            //     <MdEdit className="opacity-30 hover:opacity-100 text-xl" />
+            //     <FaTrash className="opacity-30 hover:opacity-100 text-xl" />
+            //   </span>
+            // </button>
           ))
         ) : (
           <div className="flex flex-col justify-center items-center h-full">

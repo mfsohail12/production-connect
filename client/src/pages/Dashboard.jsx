@@ -3,12 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/userContext";
 import UserProjects from "../components/UserProjects";
 import ProjectDetails from "../components/ProjectDetails";
-import { ProjectContext, ProjectsProvider } from "../context/projectContext";
+import { ProjectContext } from "../context/projectContext";
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const { user, setUser } = useContext(UserContext);
-  const [selectedProjectId, setSelectedProjectId] = useState(null);
+  const projects = useContext(ProjectContext);
+  const [selectedProjectId, setSelectedProjectId] = useState(projects[0]?._id);
 
   const logoutUser = () => {
     document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
@@ -21,23 +22,21 @@ const Dashboard = () => {
     return null;
   } else {
     return (
-      <ProjectsProvider>
-        <div className="w-screen h-screen pt-24">
-          <div className="w-[95%] h-[95%] mx-auto flex items-center gap-10">
-            <UserProjects
-              selectedProjectId={selectedProjectId}
-              setSelectedProjectId={setSelectedProjectId}
-            />
-            <ProjectDetails selectedProjectId={selectedProjectId} />
-          </div>
-          <button
-            onClick={logoutUser}
-            className="border-2 border-sky-500 p-1 w-24"
-          >
-            Logout
-          </button>
+      <div className="w-screen h-screen pt-24">
+        <div className="w-[95%] h-[95%] mx-auto flex items-center gap-10">
+          <UserProjects
+            selectedProjectId={selectedProjectId}
+            setSelectedProjectId={setSelectedProjectId}
+          />
+          <ProjectDetails selectedProjectId={selectedProjectId} />
         </div>
-      </ProjectsProvider>
+        <button
+          onClick={logoutUser}
+          className="border-2 border-sky-500 p-1 w-24"
+        >
+          Logout
+        </button>
+      </div>
     );
   }
 };
