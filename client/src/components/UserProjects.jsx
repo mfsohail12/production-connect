@@ -4,6 +4,8 @@ import { ProjectContext } from "../context/projectContext";
 import { MdEdit } from "react-icons/md";
 import { FaTrash } from "react-icons/fa";
 import ProjectBtn from "./ProjectBtn";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const UserProjects = (props) => {
   const navigate = useNavigate();
@@ -27,20 +29,6 @@ const UserProjects = (props) => {
               selectedProjectId={props.selectedProjectId}
               setSelectedProjectId={props.setSelectedProjectId}
             />
-
-            // <button // passing activeIndex/setActiveIndex as prop
-            //   key={project._id}
-            //   className="w-full h-[50px] p-4 rounded-full flex justify-between items-center text-slate-500 focus:bg-violet-200"
-            //   onClick={() => setSelectedProjectId(project._id)}
-            // >
-            //   {project.title.length < 35
-            //     ? project.title
-            //     : `${project.title.slice(0, 36)}...`}
-            //   <span className="flex gap-4">
-            //     <MdEdit className="opacity-30 hover:opacity-100 text-xl" />
-            //     <FaTrash className="opacity-30 hover:opacity-100 text-xl" />
-            //   </span>
-            // </button>
           ))
         ) : (
           <div className="flex flex-col justify-center items-center h-full">

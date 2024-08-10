@@ -41,7 +41,6 @@ const editProject = async (req, res) => {
     // Verifies user web token
     jwt.verify(token, process.env.JWT_SECRET, {}, (err, user) => {
       if (err) throw err;
-      return user;
     });
 
     try {
@@ -54,6 +53,30 @@ const editProject = async (req, res) => {
     } catch (error) {
       console.log(error);
       res.json({ error: "Error: Project was not updated" });
+    }
+  } else {
+    res.json({ error: "You are not authorized to do this" });
+  }
+};
+
+const deleteProject = async (req, res) => {
+  const { projectId } = req.body;
+  const { token } = req.cookies;
+
+  if (token) {
+    // Verifies user web token
+    jwt.verify(token, process.env.JWT_SECRET, {}, (err, user) => {
+      if (err) throw err;
+      return user;
+    });
+
+    try {
+      await Project.findOneAndDelete({ projectId });
+
+      res.status(200).send();
+    } catch (error) {
+      console.log(error);
+      res.json({ error: "Error: Project was not deleted" });
     }
   } else {
     res.json({ error: "You are not authorized to do this" });
@@ -84,4 +107,5 @@ module.exports = {
   createProject,
   getProjects,
   editProject,
+  deleteProject,
 };
