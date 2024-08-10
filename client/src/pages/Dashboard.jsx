@@ -1,22 +1,13 @@
 import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/userContext";
 import UserProjects from "../components/UserProjects";
 import ProjectDetails from "../components/ProjectDetails";
 import { ProjectContext } from "../context/projectContext";
 
 const Dashboard = () => {
-  const navigate = useNavigate();
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const projects = useContext(ProjectContext);
   const [selectedProjectId, setSelectedProjectId] = useState(projects[0]?._id);
-
-  const logoutUser = () => {
-    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    localStorage.removeItem("token");
-    setUser(null);
-    navigate("/");
-  };
 
   if (user === null) {
     return (
@@ -35,9 +26,6 @@ const Dashboard = () => {
         />
         <ProjectDetails selectedProjectId={selectedProjectId} />
       </div>
-      <button onClick={logoutUser} className="border-2 border-sky-500 p-1 w-24">
-        Logout
-      </button>
     </div>
   );
 };
