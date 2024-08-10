@@ -1,5 +1,5 @@
 import DatePicker from "react-datepicker";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import { handleChange } from "../helpers/formHelper";
 import axios from "axios";
@@ -9,7 +9,6 @@ import { ProjectContext } from "../context/projectContext";
 
 const CreateProject = () => {
   const navigate = useNavigate();
-  const [startDate, setStartDate] = useState(new Date());
 
   // Finds current project data to populate in form
   const projects = useContext(ProjectContext);
@@ -23,9 +22,54 @@ const CreateProject = () => {
     phone: project?.phone,
   });
 
-  const editProject = (e) => {
+  useEffect(() => {
+    setProjectData({
+      title: project?.title,
+      description: project?.description,
+      desiredLength: project?.desiredLength,
+      deadline: project?.deadline,
+      phone: project?.phone,
+    });
+  }, [projects]);
+
+  const editProject = async (e) => {
     e.preventDefault();
+
+    // Checks for appropriate project data
+    if (!projectData.title) {
+      toast.error("Please provide a project title");
+      return;
+    }
+
+    if (!projectData.description) {
+      toast.error("Please provide a description for your project");
+      return;
+    }
+
+    try {
+      const { data } = await axios.post("/edit-project", {
+        ...projectData,
+        projectId: project._id,
+      });
+
+      if (data.error) {
+        toast.error(data.error);
+      } else {
+        toast.success("Project Updated");
+        navigate("/dashboard");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  if (projects.length === 0) {
+    return (
+      <div className="flex justify-center items-center text-3xl font-bold">
+        Loading ...
+      </div>
+    );
+  }
 
   return (
     <div className="pt-24">
@@ -39,7 +83,7 @@ const CreateProject = () => {
             type="text"
             className="mt-3 h-16 text-2xl border-2 border-violet-600 rounded-lg indent-3 p-1 text-slate-600 block w-full font-normal"
             name="title"
-            value={projectData.title}
+            value={projectData.title || ""}
             onChange={(event) => handleChange(event, setProjectData)}
           />
         </label>
@@ -50,7 +94,7 @@ const CreateProject = () => {
             type="text"
             className="mt-3 border-2 border-violet-600 rounded-lg p-5 h-[230px] block w-full font-normal text-[16px]"
             name="description"
-            value={projectData.description}
+            value={projectData.description || ""}
             onChange={(event) => handleChange(event, setProjectData)}
           />
         </label>
@@ -62,7 +106,7 @@ const CreateProject = () => {
               type="text"
               className="border-2 border-violet-600 rounded-lg indent-3 p-1 block w-[250px] mt-3 font-normal"
               name="desiredLength"
-              value={projectData.desiredLength}
+              value={projectData.desiredLength || ""}
               onChange={(event) => handleChange(event, setProjectData)}
             />
           </label>
@@ -71,9 +115,8 @@ const CreateProject = () => {
             <span className="border-2 border-violet-600 block w-[225px] mt-3 rounded-lg">
               <DatePicker
                 showIcon
-                selected={startDate}
+                selected={projectData.deadline || new Date()}
                 onChange={(date) => {
-                  setStartDate(date);
                   setProjectData((prevData) => ({
                     ...prevData,
                     deadline: date,
@@ -89,7 +132,7 @@ const CreateProject = () => {
               type="tel"
               className="border-2 border-violet-600 rounded-lg indent-3 p-1 block w-[250px] mt-3 font-normal"
               name="phone"
-              value={projectData.phone}
+              value={projectData.phone || ""}
               onChange={(event) => handleChange(event, setProjectData)}
             />
           </label>

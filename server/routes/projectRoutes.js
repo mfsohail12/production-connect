@@ -4,6 +4,7 @@ const router = express.Router();
 const {
   createProject,
   getProjects,
+  editProject,
 } = require("../controllers/projectController");
 
 router.use(
@@ -14,6 +15,7 @@ router.use(
 );
 
 router.post("/create-project", createProject);
+router.post("/edit-project", editProject);
 router.get("/projects", getProjects);
 
 module.exports = router;

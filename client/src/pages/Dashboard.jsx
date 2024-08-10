@@ -18,27 +18,28 @@ const Dashboard = () => {
     navigate("/");
   };
 
-  if (!user) {
-    return null;
-  } else {
+  if (user === null) {
     return (
-      <div className="w-screen h-screen pt-24">
-        <div className="w-[95%] h-[95%] mx-auto flex items-center gap-10">
-          <UserProjects
-            selectedProjectId={selectedProjectId}
-            setSelectedProjectId={setSelectedProjectId}
-          />
-          <ProjectDetails selectedProjectId={selectedProjectId} />
-        </div>
-        <button
-          onClick={logoutUser}
-          className="border-2 border-sky-500 p-1 w-24"
-        >
-          Logout
-        </button>
+      <div className="flex justify-center items-center text-3xl font-bold">
+        Loading ...
       </div>
     );
   }
+
+  return (
+    <div className="w-screen h-screen pt-24">
+      <div className="w-[95%] h-[95%] mx-auto flex items-center gap-10">
+        <UserProjects
+          selectedProjectId={selectedProjectId}
+          setSelectedProjectId={setSelectedProjectId}
+        />
+        <ProjectDetails selectedProjectId={selectedProjectId} />
+      </div>
+      <button onClick={logoutUser} className="border-2 border-sky-500 p-1 w-24">
+        Logout
+      </button>
+    </div>
+  );
 };
 
 export default Dashboard;
