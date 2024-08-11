@@ -48,8 +48,14 @@ const DashboardNavbar = () => {
         </button>
       </nav>
       {showProfileDropdown && (
-        <div className=" bg-white w-[200px] fixed top-[69px] left-2 border-2 border-black">
-          <button className="text-black w-full h-[50px]" onClick={logoutUser}>
+        <div className=" bg-white w-44 fixed top-[70px] left-2 border-l-2 border-b-2 border-r-2 border-violet-200">
+          <button className="text-slate-600 w-full h-8 hover:bg-violet-100 hover:text-violet-500">
+            Edit Profile
+          </button>
+          <button
+            className="text-slate-600 w-full h-8 hover:bg-violet-100 hover:text-violet-500"
+            onClick={logoutUser}
+          >
             Logout
           </button>
         </div>
