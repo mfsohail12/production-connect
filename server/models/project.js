@@ -17,7 +17,7 @@ const projectSchema = mongoose.Schema({
     required: true,
   },
   phone: String,
-  status: { type: Boolean, default: false },
+  active: { type: Boolean, default: false },
   videoEditor: { type: mongoose.SchemaTypes.ObjectId, ref: "User" },
 });
 

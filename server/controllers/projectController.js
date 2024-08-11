@@ -13,6 +13,14 @@ const createProject = async (req, res) => {
       return user;
     });
 
+    // Verifies account type is 'client'
+    if (user.accountType === "editor") {
+      res.json({
+        error:
+          "Editors are not allowed to create projects. Please create a client account to create projects",
+      });
+    }
+
     try {
       // Creates project in database
       await Project.create({
