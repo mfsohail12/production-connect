@@ -71,8 +71,8 @@ const deleteProject = async (req, res) => {
     });
 
     try {
-      await Project.findOneAndDelete({ projectId });
-
+      await Project.findOneAndDelete({ _id: projectId });
+      console.log(doc);
       res.status(200).send();
     } catch (error) {
       console.log(error);

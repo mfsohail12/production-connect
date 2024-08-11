@@ -6,8 +6,7 @@ import { ProjectContext } from "../context/projectContext";
 
 const Dashboard = () => {
   const { user } = useContext(UserContext);
-  const projects = useContext(ProjectContext);
-  const [selectedProjectId, setSelectedProjectId] = useState(projects[0]?._id);
+  const [active, setActive] = useState(null);
 
   if (user === null) {
     return (
@@ -20,11 +19,8 @@ const Dashboard = () => {
   return (
     <div className="w-screen h-screen pt-24">
       <div className="w-[95%] h-[95%] mx-auto flex items-center gap-10">
-        <UserProjects
-          selectedProjectId={selectedProjectId}
-          setSelectedProjectId={setSelectedProjectId}
-        />
-        <ProjectDetails selectedProjectId={selectedProjectId} />
+        <UserProjects active={active} setActive={setActive} />
+        <ProjectDetails active={active} />
       </div>
     </div>
   );

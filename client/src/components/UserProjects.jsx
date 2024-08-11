@@ -1,16 +1,11 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ProjectContext } from "../context/projectContext";
-import { MdEdit } from "react-icons/md";
-import { FaTrash } from "react-icons/fa";
 import ProjectBtn from "./ProjectBtn";
-import axios from "axios";
-import toast from "react-hot-toast";
 
 const UserProjects = (props) => {
   const navigate = useNavigate();
   const projects = useContext(ProjectContext);
-  const [active, setActive] = useState(projects[0]?._id);
 
   return (
     <div className="w-1/3 h-full shadow-[4px_4px_22.2px_2px_rgba(0,0,0,0.25)] rounded-xl">
@@ -22,12 +17,10 @@ const UserProjects = (props) => {
           projects.map((project) => (
             <ProjectBtn
               title={project.title}
-              active={active}
-              setActive={setActive}
+              active={props.active}
+              setActive={props.setActive}
               key={project._id}
               id={project._id}
-              selectedProjectId={props.selectedProjectId}
-              setSelectedProjectId={props.setSelectedProjectId}
             />
           ))
         ) : (

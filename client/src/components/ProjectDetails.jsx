@@ -6,9 +6,7 @@ const ProjectDetails = (props) => {
   const { user } = useContext(UserContext);
   const projects = useContext(ProjectContext);
 
-  const project = projects.find(
-    (project) => project._id === props.selectedProjectId
-  );
+  const project = projects.find((project) => project._id === props.active);
 
   return (
     <div className="w-2/3 h-full shadow-[4px_4px_22.2px_2px_rgba(0,0,0,0.25)] rounded-xl p-10 overflow-x-scroll">

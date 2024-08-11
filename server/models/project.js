@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const projectSchema = mongoose.Schema({
   userId: {
     type: mongoose.SchemaTypes.ObjectId,
+    ref: "User",
     required: true,
   },
   title: {
@@ -16,6 +17,8 @@ const projectSchema = mongoose.Schema({
     required: true,
   },
   phone: String,
+  status: { type: Boolean, default: false },
+  videoEditor: { type: mongoose.SchemaTypes.ObjectId, ref: "User" },
 });
 
 module.exports = mongoose.model("Project", projectSchema);

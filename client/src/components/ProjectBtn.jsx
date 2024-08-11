@@ -14,14 +14,14 @@ const ProjectBtn = (props) => {
 
   const handleClick = () => {
     props.setActive(props.id);
-    props.setSelectedProjectId(props.id);
   };
 
-  const deleteProject = async () => {
+  const deleteProject = async (e, projectId) => {
+    e.stopPropagation();
     if (confirm("Are you sure want to delete this listing?")) {
       try {
         const { data } = await axios.delete("delete-project", {
-          projectId: props.selectedProjectId,
+          data: { projectId },
         });
 
         if (data.error) {
@@ -39,14 +39,16 @@ const ProjectBtn = (props) => {
     <span className="flex gap-4">
       <MdEdit
         className="opacity-30 hover:opacity-100 text-xl"
-        onClick={() => navigate(`/edit-project/${props.selectedProjectId}`)}
+        onClick={() => navigate(`/edit-project/${props.active}`)}
       />
       <FaTrash
         className="opacity-30 hover:opacity-100 text-xl"
-        onClick={deleteProject}
+        onClick={(e) => deleteProject(e, props.active)}
       />
     </span>
   );
+
+  console.log(props.active);
 
   return (
     <button className={btnStyle} onClick={handleClick}>
