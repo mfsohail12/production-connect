@@ -1,12 +1,14 @@
-import { useState } from "react";
 import { MdEdit } from "react-icons/md";
 import { FaTrash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { ProjectContext } from "../context/projectContext";
 
 const ProjectBtn = (props) => {
   const navigate = useNavigate();
+  const { setReload } = useContext(ProjectContext);
   const btnStyle =
     props.active === props.id
       ? "w-full h-[50px] p-4 rounded-full flex justify-between items-center text-slate-500 bg-violet-200"
@@ -28,6 +30,7 @@ const ProjectBtn = (props) => {
           toast.error(data.error);
         } else {
           toast.success("Project Deleted Successfully");
+          setReload((prev) => !prev);
         }
       } catch (error) {
         console.log(error);
@@ -47,8 +50,6 @@ const ProjectBtn = (props) => {
       />
     </span>
   );
-
-  console.log(props.active);
 
   return (
     <button className={btnStyle} onClick={handleClick}>

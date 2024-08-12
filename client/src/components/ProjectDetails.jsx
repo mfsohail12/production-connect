@@ -4,7 +4,7 @@ import { ProjectContext } from "../context/projectContext";
 
 const ProjectDetails = (props) => {
   const { user } = useContext(UserContext);
-  const projects = useContext(ProjectContext);
+  const { projects } = useContext(ProjectContext);
   const project = projects.find((project) => project._id === props.active);
 
   if (user.accountType === "client") {

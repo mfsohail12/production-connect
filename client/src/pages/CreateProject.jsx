@@ -1,12 +1,14 @@
 import DatePicker from "react-datepicker";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import { handleChange } from "../helpers/formHelper";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { ProjectContext } from "../context/projectContext";
 
 const CreateProject = () => {
+  const { setReload } = useContext(ProjectContext);
   const navigate = useNavigate();
   const [startDate, setStartDate] = useState(new Date());
   const [projectData, setProjectData] = useState({
@@ -38,6 +40,7 @@ const CreateProject = () => {
         toast.error(data.error);
       } else {
         toast.success("Project Created");
+        setReload((prev) => !prev);
         navigate("/dashboard");
       }
     } catch (error) {

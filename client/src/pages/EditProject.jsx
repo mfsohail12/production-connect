@@ -7,11 +7,11 @@ import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { ProjectContext } from "../context/projectContext";
 
-const CreateProject = () => {
+const EditProject = () => {
   const navigate = useNavigate();
 
   // Finds current project data to populate in form
-  const projects = useContext(ProjectContext);
+  const { projects, setReload } = useContext(ProjectContext);
   const { projectId } = useParams();
   const project = projects.find((project) => project._id === projectId);
   const [projectData, setProjectData] = useState({
@@ -30,7 +30,7 @@ const CreateProject = () => {
       deadline: project?.deadline,
       phone: project?.phone,
     });
-  }, [projects]);
+  }, [project]);
 
   const editProject = async (e) => {
     e.preventDefault();
@@ -47,7 +47,7 @@ const CreateProject = () => {
     }
 
     try {
-      const { data } = await axios.post("/edit-project", {
+      const { data } = await axios.put("/edit-project", {
         ...projectData,
         projectId: project._id,
       });
@@ -56,6 +56,7 @@ const CreateProject = () => {
         toast.error(data.error);
       } else {
         toast.success("Project Updated");
+        setReload((prev) => !prev);
         navigate("/dashboard");
       }
     } catch (error) {
@@ -157,4 +158,4 @@ const CreateProject = () => {
   );
 };
 
-export default CreateProject;
+export default EditProject;

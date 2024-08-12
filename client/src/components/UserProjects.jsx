@@ -5,7 +5,7 @@ import ProjectBtn from "./ProjectBtn";
 
 const UserProjects = (props) => {
   const navigate = useNavigate();
-  const projects = useContext(ProjectContext);
+  const { projects } = useContext(ProjectContext);
 
   return (
     <div className="w-1/3 h-full shadow-[4px_4px_22.2px_2px_rgba(0,0,0,0.25)] rounded-xl">

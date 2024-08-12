@@ -15,9 +15,9 @@ router.use(
   })
 );
 
-router.post("/create-project", createProject);
-router.post("/edit-project", editProject);
-router.delete("/delete-project", deleteProject);
 router.get("/projects", getProjects);
+router.post("/create-project", createProject);
+router.put("/edit-project", editProject);
+router.delete("/delete-project", deleteProject);
 
 module.exports = router;

@@ -10,7 +10,7 @@ const ClientDetails = () => {
       </h1>
       <div className="p-7 flex gap-3">
         <img src={defaultAvatar} className="w-28 h-28" />
-        <span className="flex flex-col justify-between py-1">
+        <span className="flex flex-col justify-between py-1 text-slate-600">
           <h1 className="text-3xl font-semibold">John Doe</h1>
           <p>
             <MdEmail className="inline mr-2 text-lg" />
