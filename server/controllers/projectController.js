@@ -1,4 +1,3 @@
-const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 const Project = require("../models/project");
 
@@ -12,14 +11,6 @@ const createProject = async (req, res) => {
       if (err) throw err;
       return user;
     });
-
-    // Verifies account type is 'client'
-    if (user.accountType === "editor") {
-      res.json({
-        error:
-          "Editors are not allowed to create projects. Please create a client account to create projects",
-      });
-    }
 
     try {
       // Creates project in database
@@ -100,7 +91,6 @@ const getProjects = async (req, res) => {
 
     try {
       const projects = await Project.find({ userId: user.id });
-
       res.json(projects);
     } catch (error) {
       console.log(error);
@@ -110,9 +100,31 @@ const getProjects = async (req, res) => {
   }
 };
 
+const activateProject = async (req, res) => {
+  const { token } = req.cookies;
+  const { projectId } = req.body;
+
+  if (token) {
+    jwt.verify(token, process.env.JWT_SECRET, {}, (err) => {
+      if (err) throw err;
+    });
+
+    try {
+      await Project.findByIdAndUpdate(projectId, { active: true });
+      res.status(200).send();
+    } catch (error) {
+      console.log(error);
+      res.json({ error: "Error: The project was not activated" });
+    }
+  } else {
+    res.json({ error: "You are not authorized to do this" });
+  }
+};
+
 module.exports = {
   createProject,
   getProjects,
   editProject,
   deleteProject,
+  activateProject,
 };

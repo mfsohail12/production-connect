@@ -39,13 +39,17 @@ const DashboardNavbar = () => {
           id="notification-bell"
           className="text-3xl text-white ml-6 cursor-pointer"
         />
-        <button
-          className="w-44 h-[40px] ml-auto rounded-lg bg-white flex justify-center items-center gap-5"
-          onClick={() => navigate("create-project")}
-        >
-          <FaPlus className="text-violet-600 text-2xl" />
-          <span className="text-violet-600 font-semibold">Post a Project</span>
-        </button>
+        {user.accountType === "client" && (
+          <button
+            className="w-44 h-[40px] ml-auto rounded-lg bg-white flex justify-center items-center gap-5"
+            onClick={() => navigate("create-project")}
+          >
+            <FaPlus className="text-violet-600 text-2xl" />
+            <span className="text-violet-600 font-semibold">
+              Post a Project
+            </span>
+          </button>
+        )}
       </nav>
       {showProfileDropdown && (
         <div className=" bg-white w-44 fixed top-[70px] left-2 border-l-2 border-b-2 border-r-2 border-violet-200">

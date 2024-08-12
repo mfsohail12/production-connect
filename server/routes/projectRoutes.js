@@ -6,6 +6,7 @@ const {
   getProjects,
   editProject,
   deleteProject,
+  activateProject,
 } = require("../controllers/projectController");
 
 router.use(
@@ -18,6 +19,7 @@ router.use(
 router.get("/projects", getProjects);
 router.post("/create-project", createProject);
 router.put("/edit-project", editProject);
+router.put("/activate-project", activateProject);
 router.delete("/delete-project", deleteProject);
 
 module.exports = router;

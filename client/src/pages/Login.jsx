@@ -28,9 +28,7 @@ const LoginPage = () => {
         toast.error(data.error);
       } else {
         localStorage.setItem("token", data.token);
-        toast.success(
-          `Logged in successfully. Welcome ${data.user.firstName}!`
-        );
+        toast.success(`Welcome ${data.user.firstName}!`);
         setUser(data.user);
         navigate("/dashboard");
       }

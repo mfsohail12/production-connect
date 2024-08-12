@@ -14,6 +14,7 @@ import Dashboard from "../pages/Dashboard";
 import CreateProject from "../pages/CreateProject";
 import EditProject from "../pages/EditProject";
 import { ProjectsProvider } from "../context/projectContext";
+import { JobProvider } from "../context/jobContext";
 import Protected from "./Protected";
 import { isAuthenticated } from "./Helpers";
 
@@ -30,7 +31,9 @@ const AppRouter = () => {
           <Route
             element={
               <ProjectsProvider>
-                <Protected />
+                <JobProvider>
+                  <Protected />
+                </JobProvider>
               </ProjectsProvider>
             }
           >

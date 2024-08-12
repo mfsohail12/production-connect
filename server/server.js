@@ -6,6 +6,7 @@ const dotenv = require("dotenv").config();
 const cookieParser = require("cookie-parser");
 const auth = require("./routes/authRoutes");
 const project = require("./routes/projectRoutes");
+const job = require("./routes/jobRoutes");
 
 // Database connection
 mongoose
@@ -22,6 +23,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/", auth);
 app.use("/", project);
+app.use("/", job);
 
 app.listen(port, () => {
   console.log(`server is running on port ${port}`);
