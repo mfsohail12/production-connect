@@ -18,7 +18,11 @@ const projectSchema = mongoose.Schema({
   },
   phone: String,
   active: { type: Boolean, default: false },
-  videoEditor: { type: mongoose.SchemaTypes.ObjectId, ref: "User" },
+  videoEditor: {
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: "User",
+    default: null,
+  },
 });
 
 module.exports = mongoose.model("Project", projectSchema);

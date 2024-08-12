@@ -12,7 +12,10 @@ const assignJob = async (req, res) => {
     });
 
     try {
-      const project = await Project.findOne({ active: true });
+      const project = await Project.findOne({
+        active: true,
+        videoEditor: null,
+      });
 
       if (project === null) {
         return res.json({
