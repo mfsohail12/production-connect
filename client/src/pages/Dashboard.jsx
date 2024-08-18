@@ -4,6 +4,7 @@ import UserProjects from "../components/UserProjects";
 import ProjectDetails from "../components/ProjectDetails";
 import CurrentJob from "../components/CurrentJob";
 import ClientDetails from "../components/ClientDetails";
+import { JobProvider } from "../context/jobContext";
 
 const Dashboard = () => {
   const { user } = useContext(UserContext);
@@ -25,13 +26,15 @@ const Dashboard = () => {
           <ProjectDetails active={active} />
         </div>
       ) : (
-        <div className="w-[95%] h-[95%] mx-auto flex items-center gap-10">
-          <span className="w-1/3 flex flex-col gap-7 justify-center">
-            <CurrentJob />
-            <ClientDetails />
-          </span>
-          <ProjectDetails />
-        </div>
+        <JobProvider>
+          <div className="w-[95%] h-[95%] mx-auto flex items-center gap-10">
+            <span className="w-1/3 flex flex-col gap-7 justify-center">
+              <CurrentJob />
+              <ClientDetails />
+            </span>
+            <ProjectDetails />
+          </div>
+        </JobProvider>
       )}
     </div>
   );

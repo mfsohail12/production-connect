@@ -2,11 +2,14 @@ import { FaMagnifyingGlass } from "react-icons/fa6";
 import { ImSpinner8 } from "react-icons/im";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/userContext";
+import { JobContext } from "../context/jobContext";
 
 const CurrentJob = () => {
   const { user, setUserReload } = useContext(UserContext);
+  const { job } = useContext(JobContext);
+
   const activateEditor = async () => {
     try {
       const { data } = await axios.put("/activate-editor", {
@@ -24,8 +27,6 @@ const CurrentJob = () => {
     }
   };
 
-  console.log(user);
-
   return (
     <div className="w-full h-[150px] shadow-[4px_4px_22.2px_2px_rgba(0,0,0,0.25)] rounded-xl">
       <h1 className="w-full bg-gradient-to-r from-violet-600 to-purple-400 rounded-t-lg h-[60px] flex justify-center items-center text-2xl font-bold text-white">
@@ -34,7 +35,7 @@ const CurrentJob = () => {
       <div className="px-8 py-4 flex justify-center items-center">
         {user.working ? (
           <button className="w-full h-[50px] p-4 rounded-full flex justify-between items-center text-slate-500 bg-violet-200">
-            Current Job Title Here
+            {job?.title}
           </button>
         ) : (
           <button

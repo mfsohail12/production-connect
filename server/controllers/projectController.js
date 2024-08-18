@@ -24,7 +24,12 @@ const createProject = async (req, res) => {
     try {
       // Creates project in database
       await Project.create({
-        owner: user.id,
+        owner: {
+          _id: user.id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+        },
         ...projectDetails,
       });
 
@@ -79,7 +84,12 @@ const deleteProject = async (req, res) => {
     });
 
     try {
-      await Project.findOneAndDelete({ _id: projectId });
+      const project = await Project.findOneAndDelete({ _id: projectId });
+      const editor = await User.findByIdAndUpdate(project.videoEditor, {
+        working: false,
+        active: false,
+      });
+
       res.status(200).send();
     } catch (error) {
       console.log(error);
@@ -99,7 +109,9 @@ const getProjects = async (req, res) => {
     });
 
     try {
-      const projects = await Project.find({ owner: user.id });
+      const projects = await Project.find({
+        "owner._id": user.id,
+      });
 
       res.json(projects);
     } catch (error) {

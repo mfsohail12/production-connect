@@ -2,9 +2,10 @@ const mongoose = require("mongoose");
 
 const projectSchema = mongoose.Schema({
   owner: {
-    type: mongoose.SchemaTypes.ObjectId,
-    ref: "User",
-    required: true,
+    _id: { type: mongoose.SchemaTypes.ObjectId, ref: "User" },
+    firstName: String,
+    lastName: String,
+    email: String,
   },
   title: {
     type: String,

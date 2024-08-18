@@ -48,7 +48,34 @@ const assignEditor = async (req, res) => {
       console.log(error);
       res.json({ error: "Error: Unable to connect you with an editor" });
     }
+  } else {
+    res.json({
+      error: "You are not authorized to do this",
+    });
   }
 };
 
-module.exports = { activateEditor, assignEditor };
+const getJob = async (req, res) => {
+  const { token } = req.cookies;
+
+  if (token) {
+    const user = jwt.verify(token, process.env.JWT_SECRET, {}, (err, user) => {
+      if (err) throw err;
+      return user;
+    });
+
+    try {
+      const job = await Project.findOne({ videoEditor: user.id });
+
+      res.send(job);
+    } catch (error) {
+      console.log(error);
+    }
+  } else {
+    res.json({
+      error: "You are not authorized to do this",
+    });
+  }
+};
+
+module.exports = { activateEditor, assignEditor, getJob };
