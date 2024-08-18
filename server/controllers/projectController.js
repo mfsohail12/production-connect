@@ -24,7 +24,7 @@ const createProject = async (req, res) => {
     try {
       // Creates project in database
       await Project.create({
-        userId: user.id,
+        owner: user.id,
         ...projectDetails,
       });
 
@@ -99,7 +99,7 @@ const getProjects = async (req, res) => {
     });
 
     try {
-      const projects = await Project.find({ userId: user.id });
+      const projects = await Project.find({ owner: user.id });
 
       res.json(projects);
     } catch (error) {

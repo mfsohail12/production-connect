@@ -87,13 +87,20 @@ const loginUser = async (req, res) => {
   }
 };
 
-const getProfile = (req, res) => {
+const getProfile = async (req, res) => {
   const { token } = req.cookies;
   if (token) {
-    jwt.verify(token, process.env.JWT_SECRET, {}, (err, user) => {
+    const user = jwt.verify(token, process.env.JWT_SECRET, {}, (err, user) => {
       if (err) throw err;
-      res.json(user);
+      return user;
     });
+
+    try {
+      const userData = await User.findById(user.id);
+      res.send(userData);
+    } catch (error) {
+      console.log(error);
+    }
   } else {
     res.json(null);
   }

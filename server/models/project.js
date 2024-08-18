@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const projectSchema = mongoose.Schema({
-  userId: {
+  owner: {
     type: mongoose.SchemaTypes.ObjectId,
     ref: "User",
     required: true,
@@ -17,7 +17,6 @@ const projectSchema = mongoose.Schema({
     required: true,
   },
   phone: String,
-  active: { type: Boolean, default: false },
   videoEditor: { type: mongoose.SchemaTypes.ObjectId, ref: "User" },
 });
 

@@ -21,6 +21,29 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  active: {
+    type: Boolean,
+    default: function () {
+      if (this.accountType === "editor") {
+        return false;
+      }
+    },
+  },
+  working: {
+    type: Boolean,
+    default: function () {
+      if (this.accountType === "editor") {
+        return false;
+      }
+    },
+  },
 });
+
+// userSchema.pre("save", function (next) {
+//   if (this.accountType === "editor") {
+//     this.active = false;
+//   }
+//   next();
+// });
 
 module.exports = mongoose.model("User", userSchema);

@@ -11,7 +11,7 @@ const Dashboard = () => {
 
   if (user === null) {
     return (
-      <div className="flex justify-center items-center text-3xl font-bold">
+      <div className="flex justify-center items-center text-3xl font-bold h-screen opacity-50">
         Loading ...
       </div>
     );

@@ -5,17 +5,16 @@ export const UserContext = createContext({});
 
 export function UserProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [userReload, setUserReload] = useState(false);
 
   useEffect(() => {
-    if (!user) {
-      axios.get("/profile").then(({ data }) => {
-        setUser(data);
-      });
-    }
-  }, []);
+    axios.get("/profile").then(({ data }) => {
+      setUser(data);
+    });
+  }, [userReload]);
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider value={{ user, setUser, setUserReload }}>
       {children}
     </UserContext.Provider>
   );

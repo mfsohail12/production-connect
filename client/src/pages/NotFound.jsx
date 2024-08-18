@@ -10,7 +10,7 @@ const NotFoundPage = () => {
       <p className="text-xl mb-5">This page does not exist</p>
       <button
         className="text-white bg-violet-600 hover:bg-violet-700 rounded-md px-3 py-2 mt-2"
-        onClick={() => navigate(-1)}
+        onClick={() => navigate("/")}
       >
         Go Back
       </button>

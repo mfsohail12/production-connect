@@ -5,16 +5,16 @@ export const ProjectContext = createContext({});
 
 export function ProjectsProvider({ children }) {
   const [projects, setProjects] = useState([]);
-  const [reload, setReload] = useState(false);
+  const [projectReload, setProjectReload] = useState(false);
 
   useEffect(() => {
     axios.get("/projects").then(({ data }) => {
       setProjects(data);
     });
-  }, [reload]);
+  }, [projectReload]);
 
   return (
-    <ProjectContext.Provider value={{ projects, setReload }}>
+    <ProjectContext.Provider value={{ projects, setProjectReload }}>
       {children}
     </ProjectContext.Provider>
   );

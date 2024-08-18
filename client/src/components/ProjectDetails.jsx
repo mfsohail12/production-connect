@@ -1,11 +1,28 @@
 import { useContext } from "react";
 import { UserContext } from "../context/userContext";
 import { ProjectContext } from "../context/projectContext";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const ProjectDetails = (props) => {
   const { user } = useContext(UserContext);
-  const { projects } = useContext(ProjectContext);
+  const { projects, setProjectReload } = useContext(ProjectContext);
   const project = projects.find((project) => project._id === props.active);
+
+  const assignEditor = async (projectId) => {
+    try {
+      const { data } = await axios.put("/assign-editor", { projectId });
+
+      if (data.error) {
+        toast.error(data.error);
+      } else {
+        toast.success("You have been connected with an editor");
+        setProjectReload((prev) => !prev);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   if (user.accountType === "client") {
     return (
@@ -34,9 +51,18 @@ const ProjectDetails = (props) => {
             {project.phone && (
               <p className="text-[15px] mt-1">{project.phone}</p>
             )}
-            <button className="border-2 bg-gradient-to-r from-sky-600 to-sky-400 py-2 px-4 rounded-full text-white font-bold absolute bottom-12 right-12">
-              Connect with an Editor
-            </button>
+            {project.videoEditor ? (
+              <div className="border-2 bg-green-500 py-2 px-4 rounded-full text-white font-bold absolute bottom-12 right-12">
+                You are connected with user: {project.videoEditor}
+              </div>
+            ) : (
+              <button
+                className="border-2 bg-gradient-to-r from-sky-600 to-sky-400 py-2 px-4 rounded-full text-white font-bold absolute bottom-12 right-12"
+                onClick={() => assignEditor(project._id)}
+              >
+                Connect with an Editor
+              </button>
+            )}
           </>
         ) : (
           <h1 className="w-full h-full flex justify-center items-center text-2xl text-slate-500">

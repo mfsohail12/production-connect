@@ -8,7 +8,7 @@ import { ProjectContext } from "../context/projectContext";
 
 const ProjectBtn = (props) => {
   const navigate = useNavigate();
-  const { setReload } = useContext(ProjectContext);
+  const { setProjectReload } = useContext(ProjectContext);
   const btnStyle =
     props.active === props.id
       ? "w-full h-[50px] p-4 rounded-full flex justify-between items-center text-slate-500 bg-violet-200"
@@ -30,7 +30,7 @@ const ProjectBtn = (props) => {
           toast.error(data.error);
         } else {
           toast.success("Project Deleted Successfully");
-          setReload((prev) => !prev);
+          setProjectReload((prev) => !prev);
         }
       } catch (error) {
         console.log(error);

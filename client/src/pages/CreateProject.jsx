@@ -6,9 +6,11 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { ProjectContext } from "../context/projectContext";
+import { UserContext } from "../context/userContext";
 
 const CreateProject = () => {
-  const { setReload } = useContext(ProjectContext);
+  const { user } = useContext(UserContext);
+  const { setProjectReload } = useContext(ProjectContext);
   const navigate = useNavigate();
   const [startDate, setStartDate] = useState(new Date());
   const [projectData, setProjectData] = useState({
@@ -40,7 +42,7 @@ const CreateProject = () => {
         toast.error(data.error);
       } else {
         toast.success("Project Created");
-        setReload((prev) => !prev);
+        setProjectReload((prev) => !prev);
         navigate("/dashboard");
       }
     } catch (error) {

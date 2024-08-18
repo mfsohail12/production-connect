@@ -11,7 +11,7 @@ const EditProject = () => {
   const navigate = useNavigate();
 
   // Finds current project data to populate in form
-  const { projects, setReload } = useContext(ProjectContext);
+  const { projects, setProjectReload } = useContext(ProjectContext);
   const { projectId } = useParams();
   const project = projects.find((project) => project._id === projectId);
   const [projectData, setProjectData] = useState({
@@ -56,7 +56,7 @@ const EditProject = () => {
         toast.error(data.error);
       } else {
         toast.success("Project Updated");
-        setReload((prev) => !prev);
+        setProjectReload((prev) => !prev);
         navigate("/dashboard");
       }
     } catch (error) {
