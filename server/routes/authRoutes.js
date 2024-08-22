@@ -7,13 +7,6 @@ const {
   getProfile,
 } = require("../controllers/authController");
 
-router.use(
-  cors({
-    credentials: true,
-    origin: "http://localhost:5100",
-  })
-);
-
 router.get("/", (req, res) => {
   res.send("this is server");
 });

@@ -7,13 +7,9 @@ const {
   editProject,
   deleteProject,
 } = require("../controllers/projectController");
+const { auth } = require("../middleware");
 
-router.use(
-  cors({
-    credentials: true,
-    origin: "http://localhost:5100",
-  })
-);
+router.use(auth);
 
 router.get("/projects", getProjects);
 router.post("/create-project", createProject);

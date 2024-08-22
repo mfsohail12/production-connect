@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
 const port = 8000;
 const mongoose = require("mongoose");
 const dotenv = require("dotenv").config();
@@ -20,10 +21,15 @@ mongoose
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
+app.use(
+  cors({
+    credentials: true,
+    origin: "http://localhost:5100",
+  })
+);
 
-app.use("/", auth);
-app.use("/", project);
-app.use("/", job);
+// Routing
+app.use("/", auth, project, job);
 
 app.listen(port, () => {
   console.log(`server is running on port ${port}`);

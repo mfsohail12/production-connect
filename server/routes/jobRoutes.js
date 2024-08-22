@@ -6,13 +6,9 @@ const {
   assignEditor,
   getJob,
 } = require("../controllers/jobController");
+const { auth } = require("../middleware");
 
-router.use(
-  cors({
-    credentials: true,
-    origin: "http://localhost:5100",
-  })
-);
+router.use(auth);
 
 // Sets editor active status to true to indicate they are looking for work
 router.put("/activate-editor", activateEditor);
