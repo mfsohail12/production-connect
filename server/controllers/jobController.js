@@ -49,12 +49,32 @@ const getJob = async (req, res) => {
   });
 
   try {
-    const job = await Project.findOne({ videoEditor: user.id });
+    const project = await Project.findOne({ "videoEditor._id": user.id });
 
-    res.send(job);
+    res.send(project);
   } catch (error) {
     console.log(error);
   }
 };
 
-module.exports = { activateEditor, assignEditor, getJob };
+const quitJob = async (req, res) => {
+  const { projectId } = req.body;
+
+  try {
+    const project = await Project.findByIdAndUpdate(projectId, {
+      $unset: { videoEditor: "" },
+    });
+
+    await User.findByIdAndUpdate(project.videoEditor._id, {
+      active: false,
+      working: false,
+    });
+
+    res.status(200).send();
+  } catch (error) {
+    console.log(error);
+    res.json({ error: "Error: Unable to quit job" });
+  }
+};
+
+module.exports = { activateEditor, assignEditor, getJob, quitJob };

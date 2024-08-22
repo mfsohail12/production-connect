@@ -9,7 +9,7 @@ export function JobProvider({ children }) {
 
   useEffect(() => {
     axios.get("/job").then(({ data }) => setJob(data));
-  }, []);
+  }, [reloadJob]);
 
   return (
     <JobContext.Provider value={{ job, setReloadJob }}>

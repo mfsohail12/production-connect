@@ -7,10 +7,10 @@ import { JobContext } from "../context/jobContext";
 import EditorDetails from "./EditorDetails";
 
 const ProjectDetails = (props) => {
-  const { user } = useContext(UserContext);
+  const { user, setUserReload } = useContext(UserContext);
   const { projects, setProjectReload } = useContext(ProjectContext);
   const project = projects.find((project) => project._id === props.active);
-  const { job } = useContext(JobContext);
+  const { job, setReloadJob } = useContext(JobContext);
   const [showEditor, setShowEditor] = useState(false);
 
   const assignEditor = async (projectId) => {
@@ -25,6 +25,24 @@ const ProjectDetails = (props) => {
       }
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const quitJob = async (projectId) => {
+    if (confirm("Are you sure you want to quit this job?")) {
+      try {
+        const { data } = await axios.put("/quit-job", { projectId });
+
+        if (data.error) {
+          toast.error(data.error);
+        } else {
+          toast.success("You quit the job");
+          setReloadJob((prev) => !prev);
+          setUserReload((prev) => !prev);
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -99,7 +117,10 @@ const ProjectDetails = (props) => {
             )}
             <h2 className="text-lg text-violet-600 mb-1">Deadline</h2>
             <p className="text-[15px] mb-4">{job?.deadline}</p>
-            <button className="border-2 bg-gradient-to-r from-red-600 to-red-400 py-2 px-4 rounded-full text-white font-bold absolute bottom-12 right-12">
+            <button
+              className="border-2 bg-gradient-to-r from-red-600 to-red-400 py-2 px-4 rounded-full text-white font-bold absolute bottom-12 right-12"
+              onClick={() => quitJob(job._id)}
+            >
               Quit Job
             </button>
           </>
