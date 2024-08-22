@@ -23,7 +23,14 @@ const assignEditor = async (req, res) => {
       return res.json({ error: "There are no editors currently available" });
     }
 
-    await Project.findByIdAndUpdate(projectId, { videoEditor: editor._id });
+    await Project.findByIdAndUpdate(projectId, {
+      videoEditor: {
+        _id: editor._id,
+        firstName: editor.firstName,
+        lastName: editor.lastName,
+        email: editor.email,
+      },
+    });
     await User.findByIdAndUpdate(editor._id, { working: true });
 
     res.status(200).send();

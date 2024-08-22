@@ -1,15 +1,17 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UserContext } from "../context/userContext";
 import { ProjectContext } from "../context/projectContext";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { JobContext } from "../context/jobContext";
+import EditorDetails from "./EditorDetails";
 
 const ProjectDetails = (props) => {
   const { user } = useContext(UserContext);
   const { projects, setProjectReload } = useContext(ProjectContext);
   const project = projects.find((project) => project._id === props.active);
   const { job } = useContext(JobContext);
+  const [showEditor, setShowEditor] = useState(false);
 
   const assignEditor = async (projectId) => {
     try {
@@ -54,9 +56,15 @@ const ProjectDetails = (props) => {
               <p className="text-[15px] mt-1">{project.phone}</p>
             )}
             {project.videoEditor ? (
-              <div className="border-2 bg-green-500 py-2 px-4 rounded-full text-white font-bold absolute bottom-12 right-12">
-                You are connected with user: {project.videoEditor}
-              </div>
+              <>
+                {showEditor && <EditorDetails editor={project.videoEditor} />}
+                <button
+                  className="border-2 bg-violet-600 py-2 px-4 rounded-full text-white font-bold absolute bottom-12 right-12 cursor-pointer"
+                  onClick={() => setShowEditor((prev) => !prev)}
+                >
+                  {showEditor ? "Hide Editor Details" : "Show Editor Details"}
+                </button>
+              </>
             ) : (
               <button
                 className="border-2 bg-gradient-to-r from-sky-600 to-sky-400 py-2 px-4 rounded-full text-white font-bold absolute bottom-12 right-12"

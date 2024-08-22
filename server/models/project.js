@@ -18,7 +18,12 @@ const projectSchema = mongoose.Schema({
     required: true,
   },
   phone: String,
-  videoEditor: { type: mongoose.SchemaTypes.ObjectId, ref: "User" },
+  videoEditor: {
+    _id: { type: mongoose.SchemaTypes.ObjectId, ref: "User" },
+    firstName: String,
+    lastName: String,
+    email: String,
+  },
 });
 
 module.exports = mongoose.model("Project", projectSchema);
