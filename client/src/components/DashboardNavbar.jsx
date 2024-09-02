@@ -21,24 +21,24 @@ const DashboardNavbar = () => {
   return (
     <>
       <nav className="w-screen h-[70px] bg-violet-600 flex px-6 items-center shadow-[0_5px_12.7px_3px_rgba(0,0,0,0.25)] fixed top-0 z-10">
-        <div
+        <button
           id="profile"
           className="h-[50px] flex items-center cursor-pointer"
           onClick={() => setShowProfileDropdown((prev) => !prev)}
         >
           <img
             src={defaultAvatar}
-            className="w-[45px] h-[45px] rounded-md object-cover"
+            className="w-[45px] h-[45px] rounded-sm object-cover"
           />
           <p className="text-white text-sm font-bold ml-3">
             {user.firstName} {user.lastName}
           </p>
           <IoMdArrowDropdown className="text-3xl text-white ml-2 self-center"></IoMdArrowDropdown>
-        </div>
-        <IoNotifications
+        </button>
+        {/* <IoNotifications
           id="notification-bell"
           className="text-3xl text-white ml-6 cursor-pointer"
-        />
+        /> */}
         {user.accountType === "client" && (
           <button
             className="w-44 h-[40px] ml-auto rounded-lg bg-white flex justify-center items-center gap-5"
@@ -53,8 +53,17 @@ const DashboardNavbar = () => {
       </nav>
       {showProfileDropdown && (
         <div className=" bg-white w-44 fixed top-[70px] left-2 border-l-2 border-b-2 border-r-2 border-violet-200">
-          <button className="text-slate-600 w-full h-8 hover:bg-violet-100 hover:text-violet-500">
-            Edit Profile
+          <button
+            className="text-slate-600 w-full h-8 hover:bg-violet-100 hover:text-violet-500"
+            onClick={() => navigate("/dashboard")}
+          >
+            Dashboard
+          </button>
+          <button
+            className="text-slate-600 w-full h-8 hover:bg-violet-100 hover:text-violet-500"
+            onClick={() => navigate("/account-settings")}
+          >
+            Account Settings
           </button>
           <button
             className="text-slate-600 w-full h-8 hover:bg-violet-100 hover:text-violet-500"

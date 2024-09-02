@@ -106,8 +106,33 @@ const getProfile = async (req, res) => {
   }
 };
 
+const updateProfile = async (req, res) => {
+  const { _id, firstName, lastName, email } = req.body;
+
+  try {
+    if (await User.findOne({ email })) {
+      return res.json({ error: "A user with this email already exists" });
+    } else {
+    }
+
+    const newUser = await User.findByIdAndUpdate(
+      _id,
+      { firstName, lastName, email },
+      { returnDoctument: "after" }
+    );
+
+    console.log(newUser);
+
+    res.status(200).send();
+  } catch (error) {
+    console.log(error);
+    res.json({ error: "Error: Unable to update your profile" });
+  }
+};
+
 module.exports = {
   registerUser,
   loginUser,
   getProfile,
+  updateProfile,
 };

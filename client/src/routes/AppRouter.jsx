@@ -13,6 +13,7 @@ import NotFound from "../pages/NotFound";
 import Dashboard from "../pages/Dashboard";
 import CreateProject from "../pages/CreateProject";
 import EditProject from "../pages/EditProject";
+import AccountSettings from "../pages/AccountSettings";
 import { ProjectsProvider } from "../context/projectContext";
 import Protected from "./Protected";
 import { isAuthenticated } from "./Helpers";
@@ -37,6 +38,7 @@ const AppRouter = () => {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/create-project" element={<CreateProject />} />
             <Route path="/edit-project/:projectId" element={<EditProject />} />
+            <Route path="/account-settings" element={<AccountSettings />} />
           </Route>
         </Route>
         <Route
