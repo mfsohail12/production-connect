@@ -130,9 +130,33 @@ const updateProfile = async (req, res) => {
   }
 };
 
+const updatePassword = async (req, res) => {
+  const { _id, currentPassword, newPassword } = req.body;
+
+  try {
+    const user = await User.findById(_id);
+
+    if (await comparePassword(currentPassword, user.password)) {
+      const newHashedPassword = await hashPassword(newPassword);
+      user.password = newHashedPassword;
+      await user.save();
+
+      res.status(200).send();
+    } else {
+      res.json({ error: "Current password is invalid" });
+    }
+  } catch (error) {
+    console.log(error);
+    res.json({
+      error: "Error: Unable to change your password",
+    });
+  }
+};
+
 module.exports = {
   registerUser,
   loginUser,
   getProfile,
   updateProfile,
+  updatePassword,
 };

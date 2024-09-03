@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 import { UserContext } from "../context/userContext";
 import { useState, useEffect } from "react";
 import { handleChange } from "../helpers/formHelper";
@@ -115,9 +116,12 @@ const AccountSettings = () => {
             <label htmlFor="password" className="text-slate-600">
               Password
             </label>
-            <p className="text-sm text-violet-600 hover:text-violet-800 hover:underline hover:cursor-pointer">
+            <Link
+              className="text-sm text-violet-600 hover:text-violet-800 hover:underline hover:cursor-pointer"
+              to="/change-password"
+            >
               Change
-            </p>
+            </Link>
           </span>
           <input
             id="password"

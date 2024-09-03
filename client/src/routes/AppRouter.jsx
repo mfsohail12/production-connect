@@ -14,6 +14,7 @@ import Dashboard from "../pages/Dashboard";
 import CreateProject from "../pages/CreateProject";
 import EditProject from "../pages/EditProject";
 import AccountSettings from "../pages/AccountSettings";
+import ChangePassword from "../pages/ChangePassword";
 import { ProjectsProvider } from "../context/projectContext";
 import Protected from "./Protected";
 import { isAuthenticated } from "./Helpers";
@@ -39,6 +40,7 @@ const AppRouter = () => {
             <Route path="/create-project" element={<CreateProject />} />
             <Route path="/edit-project/:projectId" element={<EditProject />} />
             <Route path="/account-settings" element={<AccountSettings />} />
+            <Route path="/change-password" element={<ChangePassword />} />
           </Route>
         </Route>
         <Route
