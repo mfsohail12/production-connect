@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../context/userContext";
 import { useState, useEffect } from "react";
 import { handleChange } from "../helpers/formHelper";
@@ -7,12 +7,21 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 const AccountSettings = () => {
-  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
+  const { user, setUser } = useContext(UserContext);
   const [profileData, setProfileData] = useState({
     firstName: user?.firstName,
     lastName: user?.lastName,
     email: user?.email,
   });
+
+  useEffect(() => {
+    setProfileData({
+      firstName: user?.firstName,
+      lastName: user?.lastName,
+      email: user?.email,
+    });
+  }, [user]);
 
   const cancelUpdate = () => {
     setProfileData({
@@ -57,20 +66,36 @@ const AccountSettings = () => {
     }
   };
 
-  useEffect(() => {
-    setProfileData({
-      firstName: user?.firstName,
-      lastName: user?.lastName,
-      email: user?.email,
-    });
-  }, [user]);
+  const deleteAccount = async () => {
+    const { _id } = user;
+
+    try {
+      const { data } = await axios.delete("delete-account", {
+        data: { _id },
+      });
+
+      if (data.error) {
+        toast.error(data.error);
+      } else {
+        toast.success("Your account was deleted successfully");
+
+        document.cookie =
+          "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        localStorage.removeItem("token");
+        setUser(null);
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   if (!user) {
     return <div>Loading ... </div>;
   }
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen">
+    <div className="mt-[70px] flex flex-col justify-center items-center h-screen">
       <div className="w-[600px] bg-slate-100 rounded-3xl p-6">
         <h1 className="text-2xl font-bold text-violet-600 mb-5">
           Edit Profile
@@ -135,7 +160,7 @@ const AccountSettings = () => {
           <span className="flex justify-center items-center gap-4 mt-3">
             <button
               type="button"
-              className="rounded-xl bg-red-500 hover:bg-red-400 w-32 text-white font-semibold py-1"
+              className="rounded-xl text-violet-600 font-semibold py-1"
               onClick={cancelUpdate}
             >
               Cancel
@@ -148,6 +173,24 @@ const AccountSettings = () => {
             </button>
           </span>
         </form>
+      </div>
+      <div className="w-[600px] bg-slate-100 rounded-3xl p-6 mt-8">
+        <h1 className="text-2xl font-bold text-violet-600 mb-1">
+          Delete Account
+        </h1>
+        <p className="mb-5 text-slate-500">
+          Deleting your account will result in all your data being lost
+        </p>
+        <button
+          type="button"
+          className="rounded-xl bg-red-500 hover:bg-red-400 px-3 text-white font-semibold py-1"
+          onClick={() =>
+            confirm("Are you sure you want to delete your account?") &&
+            deleteAccount()
+          }
+        >
+          Delete My Account
+        </button>
       </div>
     </div>
   );

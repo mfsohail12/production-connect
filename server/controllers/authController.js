@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const Project = require("../models/project");
 const {
   hashPassword,
   comparePassword,
@@ -108,20 +109,20 @@ const getProfile = async (req, res) => {
 
 const updateProfile = async (req, res) => {
   const { _id, firstName, lastName, email } = req.body;
+  const { token } = req.cookies;
+
+  const user = jwt.verify(token, process.env.JWT_SECRET, {}, (err, user) => {
+    if (err) throw err;
+    return user;
+  });
 
   try {
-    if (await User.findOne({ email })) {
+    if (user.email !== email && (await User.findOne({ email }))) {
       return res.json({ error: "A user with this email already exists" });
     } else {
     }
 
-    const newUser = await User.findByIdAndUpdate(
-      _id,
-      { firstName, lastName, email },
-      { returnDoctument: "after" }
-    );
-
-    console.log(newUser);
+    await User.findByIdAndUpdate(_id, { firstName, lastName, email });
 
     res.status(200).send();
   } catch (error) {
@@ -153,10 +154,28 @@ const updatePassword = async (req, res) => {
   }
 };
 
+const deleteAccount = async (req, res) => {
+  const { _id } = req.body;
+
+  try {
+    const user = await User.findByIdAndDelete(_id);
+
+    if (user.accountType === "client") {
+      await Project.deleteMany({ "owner._id": _id });
+    }
+
+    res.status(200).send();
+  } catch (error) {
+    console.log(error);
+    res.json({ error: "Error: Unable to delete your account" });
+  }
+};
+
 module.exports = {
   registerUser,
   loginUser,
   getProfile,
   updateProfile,
   updatePassword,
+  deleteAccount,
 };

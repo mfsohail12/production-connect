@@ -93,7 +93,7 @@ const ChangePassword = () => {
           <span className="flex justify-center items-center gap-4 mt-3">
             <button
               type="button"
-              className="rounded-xl bg-red-500 hover:bg-red-400 w-32 text-white font-semibold py-1"
+              className="rounded-xl text-violet-600 font-semibold py-1"
               onClick={() => navigate("/account-settings")}
             >
               Cancel
