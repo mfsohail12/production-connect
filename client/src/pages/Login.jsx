@@ -4,6 +4,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { UserContext } from "../context/userContext";
 import { handleChange } from "../helpers/formHelper";
+import logo from "../assets/logo.svg";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -46,9 +47,10 @@ const LoginPage = () => {
         className="w-[375px] h-[425px] shadow-lg flex flex-col items-center bg-white"
       >
         <Link to="/">
-          <h1 className="text-violet-600 text-2xl font-bold mt-9">
+          {/* <h1 className="text-violet-600 text-2xl font-bold mt-9">
             Production Connect
-          </h1>
+          </h1> */}
+          <img src={logo} alt="production connect logo" className="w-64 mt-9" />
         </Link>
         <form
           id="signUpForm"

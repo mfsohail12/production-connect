@@ -1,10 +1,12 @@
 import { NavLink, Link } from "react-router-dom";
+import logo from "../assets/logo.svg";
 
 const PublicNavbar = () => {
   return (
     <nav className="h-[70px] font-inter flex p-2 items-center w-screen bg-black bg-opacity-50 font-bold text-lg fixed top-0 z-10">
       <Link to="/" className="mr-auto ml-2">
-        <h1 className="text-violet-600 text-2xl">Production Connect</h1>
+        {/* <h1 className="text-violet-600 text-2xl">Production Connect</h1> */}
+        <img src={logo} alt="production connect logo" className="w-64" />
       </Link>
       <NavLink
         to="/login"
