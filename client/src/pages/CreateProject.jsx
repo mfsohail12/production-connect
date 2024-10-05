@@ -1,4 +1,3 @@
-import DatePicker from "react-datepicker";
 import { useState, useContext } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import { handleChange } from "../helpers/formHelper";
@@ -12,12 +11,11 @@ const CreateProject = () => {
   const { user } = useContext(UserContext);
   const { setProjectReload } = useContext(ProjectContext);
   const navigate = useNavigate();
-  const [startDate, setStartDate] = useState(new Date());
   const [projectData, setProjectData] = useState({
     title: "",
     description: "",
-    desiredLength: "",
-    deadline: new Date(),
+    desiredLength: "Shorter than 1 minute",
+    deadline: new Date().toISOString().split("T")[0],
     phone: "",
   });
 
@@ -81,30 +79,31 @@ const CreateProject = () => {
         <span className="flex justify-between w-full">
           <label className="font-semibold text-slate-600">
             Desired Length
-            <input
-              type="text"
-              className="border-2 border-violet-600 rounded-lg indent-3 p-1 block w-[250px] mt-3 font-normal"
+            <select
               name="desiredLength"
               value={projectData.desiredLength}
+              className="border-2 border-violet-600 rounded-lg indent-3 p-1 block w-[250px] mt-3 font-normal"
               onChange={(event) => handleChange(event, setProjectData)}
-            />
+            >
+              <option value="Shorter than 1 minute">
+                Shorter than 1 minute
+              </option>
+              <option value="1 - 5 minutes">1 - 5 minutes</option>
+              <option value="5 - 10 minutes">5 - 10 minutes</option>
+              <option value="10 - 30 minutes">10 - 30 minutes</option>
+              <option value="30 - 60 minutes">30 - 60 minutes</option>
+              <option value="Longer than 1 hour">Longer than 1 hour</option>
+            </select>
           </label>
           <label className="font-semibold text-slate-600">
             Deadline
-            <span className="border-2 border-violet-600 block w-[225px] mt-3 rounded-lg">
-              <DatePicker
-                showIcon
-                selected={startDate}
-                onChange={(date) => {
-                  setStartDate(date);
-                  setProjectData((prevData) => ({
-                    ...prevData,
-                    deadline: date,
-                  }));
-                }}
-                className="rounded-lg"
-              />
-            </span>
+            <input
+              type="date"
+              className="border-2 border-violet-600 rounded-lg py-1 px-2 block mt-3 font-normal"
+              name="deadline"
+              value={projectData.deadline}
+              onChange={(event) => handleChange(event, setProjectData)}
+            />
           </label>
           <label className="font-semibold text-slate-600">
             Phone Number

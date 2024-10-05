@@ -46,7 +46,13 @@ const editProject = async (req, res) => {
   try {
     await Project.findOneAndUpdate(
       { _id: projectId },
-      { title, description, desiredLength, deadline, phone }
+      {
+        title,
+        description,
+        desiredLength,
+        deadline,
+        phone,
+      }
     );
 
     res.status(200).send();

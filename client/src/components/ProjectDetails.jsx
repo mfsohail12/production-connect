@@ -13,6 +13,22 @@ const ProjectDetails = (props) => {
   const { job, setReloadJob } = useContext(JobContext);
   const [showEditor, setShowEditor] = useState(false);
 
+  const formatDate = () => {
+    if (project) {
+      const timestamp = Date.parse(project.deadline);
+
+      const date = new Date(timestamp);
+
+      const formattedDate = date.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+
+      return formattedDate;
+    }
+  };
+
   const assignEditor = async (projectId) => {
     try {
       const { data } = await axios.put("/assign-editor", { projectId });
@@ -65,7 +81,7 @@ const ProjectDetails = (props) => {
               </>
             )}
             <h2 className="text-lg text-violet-600 mb-1">Deadline</h2>
-            <p className="text-[15px] mb-4">{project.deadline}</p>
+            <p className="text-[15px] mb-4">{formatDate()}</p>
             <h2 className="text-lg text-violet-600 mb-1">
               Contact Information
             </h2>
