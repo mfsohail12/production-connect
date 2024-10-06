@@ -13,20 +13,16 @@ const ProjectDetails = (props) => {
   const { job, setReloadJob } = useContext(JobContext);
   const [showEditor, setShowEditor] = useState(false);
 
-  const formatDate = () => {
-    if (project) {
-      const timestamp = Date.parse(project.deadline);
+  const formatDate = (deadlineString) => {
+    const date = new Date(deadlineString.replace(/-/g, "/").replace(/T.+/, ""));
 
-      const date = new Date(timestamp);
+    const formattedDate = date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
 
-      const formattedDate = date.toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      });
-
-      return formattedDate;
-    }
+    return formattedDate;
   };
 
   const assignEditor = async (projectId) => {
@@ -81,7 +77,7 @@ const ProjectDetails = (props) => {
               </>
             )}
             <h2 className="text-lg text-violet-600 mb-1">Deadline</h2>
-            <p className="text-[15px] mb-4">{formatDate()}</p>
+            <p className="text-[15px] mb-4">{formatDate(project.deadline)}</p>
             <h2 className="text-lg text-violet-600 mb-1">
               Contact Information
             </h2>

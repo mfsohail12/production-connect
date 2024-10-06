@@ -117,7 +117,7 @@ const updateProfile = async (req, res) => {
   });
 
   try {
-    if (user.email !== email && (await User.findOne({ email }))) {
+    if (email !== user.email && (await User.findOne({ email }))) {
       return res.json({ error: "A user with this email already exists" });
     } else {
     }
