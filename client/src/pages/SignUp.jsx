@@ -36,12 +36,12 @@ const SignUpPage = () => {
 
   // Set client/editor button class
   const clientBtnClass = clientActive
-    ? "h-7 w-44 border-2 rounded-lg border-violet-600 bg-violet-600 text-white"
-    : "h-7 w-44 border-2 rounded-lg border-violet-600";
+    ? "sm:h-7 h-6 sm:w-44 w-32 border-2 rounded-lg border-violet-600 bg-violet-600 text-white sm:text-base text-[0.65rem]"
+    : "sm:h-7 h-6 sm:w-44 w-32 border-2 rounded-lg border-violet-600 sm:text-base text-[0.65rem]";
 
   const editorBtnClass = !clientActive
-    ? "h-7 w-44 border-2 rounded-lg border-violet-600 bg-violet-600 text-white"
-    : "h-7 w-44 border-2 rounded-lg border-violet-600";
+    ? "sm:h-7 h-6 sm:w-44 w-32 border-2 rounded-lg border-violet-600 bg-violet-600 text-white sm:text-base text-[0.65rem]"
+    : "sm:h-7 h-6 sm:w-44 w-32 border-2 rounded-lg border-violet-600 sm:text-base text-[0.65rem]";
 
   // Checks if provided user data is appropriate
   const isValid = (userData) => {
@@ -107,13 +107,17 @@ const SignUpPage = () => {
     <div className="h-screen w-screen flex justify-center items-center">
       <div
         id="signUpBox"
-        className="w-[450px] h-[550px] shadow-lg flex flex-col items-center"
+        className="sm:w-[28.125rem] w-[20rem] sm:h-[34.375rem] h-[29rem] shadow-lg flex flex-col items-center"
       >
         <Link to="/">
           {/* <h1 className="text-violet-600 text-2xl font-bold mt-9">
             Production Connect
           </h1> */}
-          <img src={logo} alt="production connect logo" className="w-64 mt-9" />
+          <img
+            src={logo}
+            alt="production connect logo"
+            className="sm:w-64 w-48 mt-9"
+          />
         </Link>
         <div
           id="accountTypeSelector"
@@ -136,28 +140,28 @@ const SignUpPage = () => {
         </div>
         <form
           id="signUpForm"
-          className="flex flex-col items-center gap-5"
+          className="flex flex-col items-center sm:gap-5 gap-4 w-5/6"
           onSubmit={registerUser}
         >
-          <span className="flex gap-3">
-            <label htmlFor="firstName">
+          <span className="flex gap-3 w-full">
+            <label htmlFor="firstName" className="sm:text-base text-sm">
               First Name
               <input
                 id="firstName"
                 type="text"
-                className="border-2 block indent-1.5 p-[2px] mt-1"
+                className="border-2 block indent-1.5 p-[2px] mt-1 w-full"
                 onChange={(event) => handleChange(event, setFormData)}
                 name="firstName"
                 value={formData.firstName}
               />
             </label>
 
-            <label htmlFor="lastName">
+            <label htmlFor="lastName" className="sm:text-base text-sm">
               Last Name
               <input
                 id="lastName"
                 type="text"
-                className="border-2 block indent-1.5 p-[2px] mt-1"
+                className="border-2 block indent-1.5 p-[2px] mt-1 w-full"
                 onChange={(event) => handleChange(event, setFormData)}
                 name="lastName"
                 value={formData.lastName}
@@ -165,7 +169,7 @@ const SignUpPage = () => {
             </label>
           </span>
 
-          <label htmlFor="email" className="self-start w-full">
+          <label htmlFor="email" className="w-full sm:text-base text-sm">
             Email Address
             <input
               id="email"
@@ -178,24 +182,24 @@ const SignUpPage = () => {
           </label>
 
           <span className="flex gap-3">
-            <label htmlFor="password">
+            <label htmlFor="password" className="sm:text-base text-sm">
               Password
               <input
                 id="password"
                 type="password"
-                className="border-2 block indent-1.5 p-[2px] mt-1"
+                className="border-2 block indent-1.5 p-[2px] mt-1 w-full"
                 onChange={(event) => handleChange(event, setFormData)}
                 name="password"
                 value={formData.password}
               />
             </label>
 
-            <label htmlFor="confirmPassword">
+            <label htmlFor="confirmPassword" className="sm:text-base text-sm">
               Confirm Password
               <input
                 type="password"
                 id="confirmPassword"
-                className="border-2 block indent-1.5 p-[2px] mt-1"
+                className="border-2 block indent-1.5 p-[2px] mt-1 w-full"
                 name="confirmPassword"
                 value={formData.confirmPassword}
                 onChange={(event) => handleChange(event, setFormData)}
@@ -204,12 +208,12 @@ const SignUpPage = () => {
           </span>
           <button
             type="submit"
-            className="w-full mt-5 h-9 bg-violet-600 rounded-lg text-white font-bold"
+            className="w-full sm:mt-5 mt-3 h-9 bg-violet-600 rounded-lg text-white font-bold"
           >
             Sign up
           </button>
         </form>
-        <p className="text-sm mt-5">
+        <p className="sm:text-sm text-xs mt-5">
           Already have an account?{" "}
           <Link to="/login" className="text-violet-600">
             Login

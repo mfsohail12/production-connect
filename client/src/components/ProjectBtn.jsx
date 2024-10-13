@@ -11,8 +11,8 @@ const ProjectBtn = (props) => {
   const { setProjectReload } = useContext(ProjectContext);
   const btnStyle =
     props.active === props.id
-      ? "w-full h-[50px] p-4 rounded-full flex justify-between items-center text-slate-500 bg-violet-200"
-      : "w-full h-[50px] p-4 rounded-full flex justify-between items-center text-slate-500";
+      ? "w-full sm:text-base text-sm sm:h-[3.125rem] h-10 p-4 rounded-full flex justify-between items-center text-slate-500 bg-violet-200"
+      : "w-full sm:text-base text-sm sm:h-[3.125rem] h-10 p-4 rounded-full flex justify-between items-center text-slate-500";
 
   const handleClick = () => {
     props.setActive(props.id);
@@ -41,11 +41,11 @@ const ProjectBtn = (props) => {
   const editTrashElements = (
     <span className="flex gap-4">
       <MdEdit
-        className="opacity-30 hover:opacity-100 text-xl"
+        className="opacity-30 hover:opacity-100 sm:text-xl text-lg"
         onClick={() => navigate(`/edit-project/${props.active}`)}
       />
       <FaTrash
-        className="opacity-30 hover:opacity-100 text-xl"
+        className="opacity-30 hover:opacity-100 sm:text-xl text-lg"
         onClick={(e) => deleteProject(e, props.active)}
       />
     </span>

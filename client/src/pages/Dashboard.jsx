@@ -22,7 +22,7 @@ const Dashboard = () => {
   return (
     <div className="w-screen h-screen pt-24">
       {user.accountType === "client" ? (
-        <div className="w-[95%] h-[95%] mx-auto flex items-center gap-10">
+        <div className="sm:w-[95%] sm:h-[95%] w-[90%] h-[50rem] mx-auto flex sm:flex-row sm:items-center sm:gap-10 gap-7 flex-col sm:pb-0 pb-10">
           <UserProjects active={active} setActive={setActive} />
           <ProjectDetails active={active} />
         </div>

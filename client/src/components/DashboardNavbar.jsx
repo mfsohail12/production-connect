@@ -20,34 +20,34 @@ const DashboardNavbar = () => {
 
   return (
     <>
-      <nav className="w-screen h-[70px] bg-violet-600 flex px-6 items-center shadow-[0_5px_12.7px_3px_rgba(0,0,0,0.25)] fixed top-0 z-10">
+      <nav className="w-screen sm:h-[4.375rem] h-16 bg-violet-600 flex sm:px-6 px-3 items-center shadow-[0_5px_12.7px_3px_rgba(0,0,0,0.25)] fixed top-0 z-10">
         {user ? (
           <button
             id="profile"
-            className="h-[50px] flex items-center cursor-pointer"
+            className="h-[3.125rem] flex items-center cursor-pointer"
             onClick={() => setShowProfileDropdown((prev) => !prev)}
           >
             <img
               src={defaultAvatar}
-              className="w-[45px] h-[45px] rounded-sm object-cover"
+              className="sm:w-[2.813rem] sm:h-[2.813rem] w-8 h-8 rounded-sm object-cover"
             />
-            <p className="text-white text-sm font-bold ml-3">
+            <p className="text-white sm:text-sm text-xs font-bold sm:ml-3 ml-2">
               {user.firstName} {user.lastName}
             </p>
-            <IoMdArrowDropdown className="text-3xl text-white ml-2 self-center"></IoMdArrowDropdown>
+            <IoMdArrowDropdown className="text-3xl text-white sm:ml-2 ml-1 self-center"></IoMdArrowDropdown>
           </button>
         ) : (
           <div className="flex justify-center items-center">
-            <ImSpinner8 className="animate-spin h-[30px] w-[160px] cursor-pointer text-white" />
+            <ImSpinner8 className="animate-spin sm:h-8 sm:w-40 h-6 w-32 cursor-pointer text-white" />
           </div>
         )}
         {user && user.accountType === "client" && (
           <button
-            className="w-44 h-[40px] ml-auto rounded-lg bg-white flex justify-center items-center gap-5"
+            className="sm:w-44 w-32 sm:h-10 h-8 ml-auto rounded-lg bg-white flex justify-center items-center sm:gap-5 gap-1"
             onClick={() => navigate("create-project")}
           >
-            <FaPlus className="text-violet-600 text-2xl" />
-            <span className="text-violet-600 font-semibold">
+            <FaPlus className="text-violet-600 sm:text-2xl text-sm" />
+            <span className="text-violet-600 sm:text-base text-sm font-semibold">
               Post a Project
             </span>
           </button>

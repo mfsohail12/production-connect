@@ -82,7 +82,7 @@ const CreateProject = () => {
             <select
               name="desiredLength"
               value={projectData.desiredLength}
-              className="border-2 border-violet-600 rounded-lg indent-3 p-1 block w-[250px] mt-3 font-normal"
+              className="border-2 border-violet-600 rounded-lg indent-3 p-1 block w-[250px] mt-3 font-normal h-[40px]"
               onChange={(event) => handleChange(event, setProjectData)}
             >
               <option value="Shorter than 1 minute">
@@ -99,7 +99,7 @@ const CreateProject = () => {
             Deadline
             <input
               type="date"
-              className="border-2 border-violet-600 rounded-lg py-1 px-2 block mt-3 font-normal"
+              className="border-2 border-violet-600 rounded-lg py-1 px-2 block mt-3 font-normal h-[40px]"
               name="deadline"
               value={projectData.deadline}
               onChange={(event) => handleChange(event, setProjectData)}
@@ -109,7 +109,7 @@ const CreateProject = () => {
             Phone Number
             <input
               type="tel"
-              className="border-2 border-violet-600 rounded-lg indent-3 p-1 block w-[250px] mt-3 font-normal"
+              className="border-2 border-violet-600 rounded-lg indent-3 p-1 block w-[250px] mt-3 font-normal h-[40px]"
               name="phone"
               value={projectData.phone}
               onChange={(event) => handleChange(event, setProjectData)}

@@ -44,20 +44,24 @@ const LoginPage = () => {
     <div className="h-screen w-screen flex justify-center items-center">
       <div
         id="loginBox"
-        className="w-[375px] h-[425px] shadow-lg flex flex-col items-center bg-white"
+        className="sm:w-96 w-72 sm:h-[24rem] h-[22rem] shadow-lg flex flex-col items-center bg-white"
       >
         <Link to="/">
           {/* <h1 className="text-violet-600 text-2xl font-bold mt-9">
             Production Connect
           </h1> */}
-          <img src={logo} alt="production connect logo" className="w-64 mt-9" />
+          <img
+            src={logo}
+            alt="production connect logo"
+            className="sm:w-64 w-48 mt-9"
+          />
         </Link>
         <form
           id="signUpForm"
-          className="w-5/6 flex flex-col gap-5 mt-7"
+          className="w-5/6 flex flex-col sm:gap-5 gap-4 mt-7"
           onSubmit={loginUser}
         >
-          <label htmlFor="email" className="w-full">
+          <label htmlFor="email" className="sm:text-base text-sm">
             Email Address
             <input
               id="email"
@@ -68,7 +72,7 @@ const LoginPage = () => {
               onChange={(event) => handleChange(event, setLoginData)}
             />
           </label>
-          <label htmlFor="password" className="w-full">
+          <label htmlFor="password" className="sm:text-base text-sm">
             Password
             <input
               id="password"
@@ -82,12 +86,12 @@ const LoginPage = () => {
 
           <button
             type="submit"
-            className="w-full mt-2 h-9 bg-violet-600 rounded-lg text-white font-bold"
+            className="w-full mt-2 sm:h-9 h-7 bg-violet-600 rounded-lg text-white font-bold"
           >
             Login
           </button>
         </form>
-        <p className="text-sm mt-5">
+        <p className="sm:text-sm text-xs sm:mt-6 mt-7">
           Don't have an account yet?{" "}
           <Link to="/sign-up" className="text-violet-600">
             Sign up

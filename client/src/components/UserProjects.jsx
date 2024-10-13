@@ -8,11 +8,11 @@ const UserProjects = (props) => {
   const { projects } = useContext(ProjectContext);
 
   return (
-    <div className="w-1/3 h-full shadow-[4px_4px_22.2px_2px_rgba(0,0,0,0.25)] rounded-xl">
-      <h1 className="w-full bg-gradient-to-r from-violet-600 to-purple-400 rounded-t-lg h-[60px] flex justify-center items-center text-2xl font-bold text-white">
+    <div className="sm:w-1/3 w-full sm:h-full h-1/2 shadow-[4px_4px_22.2px_2px_rgba(0,0,0,0.25)] rounded-xl">
+      <h1 className="w-full bg-gradient-to-r from-violet-600 to-purple-400 rounded-t-lg sm:h-[3.75rem] h-12 flex justify-center items-center sm:text-2xl text-xl font-bold text-white">
         My Projects
       </h1>
-      <div className="px-8 py-4 h-[548px] overflow-y-scroll">
+      <div className="sm:px-8 sm:py-4 px-5 py-3 sm:h-[90%] h-[85%] overflow-y-scroll">
         {projects.length > 0 ? (
           projects.map((project) => (
             <ProjectBtn
