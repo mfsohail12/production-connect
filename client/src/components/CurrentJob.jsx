@@ -28,7 +28,7 @@ const CurrentJob = () => {
   };
 
   return (
-    <div className="w-full h-[150px] shadow-[4px_4px_22.2px_2px_rgba(0,0,0,0.25)] rounded-xl">
+    <div className="w-full h-[9.375rem] shadow-[4px_4px_22.2px_2px_rgba(0,0,0,0.25)] rounded-xl">
       <h1 className="w-full bg-gradient-to-r from-violet-600 to-purple-400 rounded-t-lg h-[60px] flex justify-center items-center text-2xl font-bold text-white">
         Current Job
       </h1>

@@ -95,8 +95,8 @@ const AccountSettings = () => {
   }
 
   return (
-    <div className="mt-[70px] flex flex-col justify-center items-center h-screen">
-      <div className="w-[600px] bg-slate-100 rounded-3xl p-6">
+    <div className="sm:mt-14 mt-28 flex flex-col justify-center items-center h-screen">
+      <div className="sm:w-[37.5rem] w-[20rem] bg-slate-100 rounded-3xl p-6">
         <h1 className="text-2xl font-bold text-violet-600 mb-5">
           Edit Profile
         </h1>
@@ -167,14 +167,14 @@ const AccountSettings = () => {
             </button>
             <button
               type="submit"
-              className="rounded-xl bg-violet-600 hover:bg-violet-500 w-48 text-white font-semibold py-1"
+              className="rounded-xl bg-violet-600 hover:bg-violet-500 sm:w-48 w-36 text-white font-semibold py-1"
             >
               Save changes
             </button>
           </span>
         </form>
       </div>
-      <div className="w-[600px] bg-slate-100 rounded-3xl p-6 mt-8">
+      <div className="sm:w-[37.5rem] w-[20rem] bg-slate-100 rounded-3xl p-6 mt-8">
         <h1 className="text-2xl font-bold text-violet-600 mb-1">
           Delete Account
         </h1>

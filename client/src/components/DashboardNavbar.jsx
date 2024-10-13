@@ -54,7 +54,7 @@ const DashboardNavbar = () => {
         )}
       </nav>
       {showProfileDropdown && (
-        <div className=" bg-white w-44 fixed top-[70px] left-2 border-l-2 border-b-2 border-r-2 border-violet-200">
+        <div className=" bg-white w-44 fixed sm:top-[4.375rem] top-16 left-2 border-l-2 border-b-2 border-r-2 border-violet-200">
           <button
             className="text-slate-600 w-full h-8 hover:bg-violet-100 hover:text-violet-500"
             onClick={() => navigate("/dashboard")}

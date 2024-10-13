@@ -49,7 +49,7 @@ const ChangePassword = () => {
 
   return (
     <div className="flex flex-col justify-center items-center h-screen">
-      <div className="w-[600px] bg-slate-100 rounded-3xl p-6">
+      <div className="sm:w-[37.5rem] w-[20rem] bg-slate-100 rounded-3xl p-6">
         <h1 className="text-2xl font-bold text-violet-600 mb-5">
           Change Password
         </h1>
@@ -100,7 +100,7 @@ const ChangePassword = () => {
             </button>
             <button
               type="submit"
-              className="rounded-xl bg-violet-600 hover:bg-violet-500 w-48 text-white font-semibold py-1"
+              className="rounded-xl bg-violet-600 hover:bg-violet-500 sm:w-48 w-40 text-white font-semibold py-1"
             >
               Change password
             </button>

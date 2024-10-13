@@ -68,7 +68,7 @@ const ProjectDetails = (props) => {
                 <>
                   {showEditor && <EditorDetails editor={project.videoEditor} />}
                   <button
-                    className="border-2 bg-violet-600 py-2 px-4 rounded-full text-white font-bold absolute bottom-12 right-12 cursor-pointer"
+                    className="border-2 bg-violet-600 py-2 px-4 rounded-full text-white font-bold cursor-pointer"
                     onClick={() => setShowEditor((prev) => !prev)}
                   >
                     {showEditor ? "Hide Editor Details" : "Show Editor Details"}
@@ -84,13 +84,13 @@ const ProjectDetails = (props) => {
               )}
             </div>
             <div className="sm:h-[91%] h-[94%] w-11/12 absolute overflow-y-scroll pb-10">
-              <h1 className="sm:text-3xl text-xl font-semibold sm:mb-7 mb-5 text-slate-600 break-words">
+              <h1 className="sm:text-3xl text-2xl font-semibold sm:mb-7 mb-5 text-slate-600 break-words">
                 {project.title}
               </h1>
               <h2 className="sm:text-lg text-sm text-violet-600 mb-1">
                 Description
               </h2>
-              <p className="sm:text-[0.938rem] text-xs mb-4 break-words">
+              <p className="sm:text-[0.938rem] text-slate-500 leading-6 text-xs mb-4 break-words">
                 {project.description}
               </p>
               {project.desiredLength && (
@@ -98,7 +98,7 @@ const ProjectDetails = (props) => {
                   <h2 className="sm:text-lg text-sm text-violet-600 mb-1">
                     Desired Length
                   </h2>
-                  <p className="sm:text-[0.938rem] text-xs mb-4">
+                  <p className="sm:text-[0.938rem] text-slate-500 leading-6 text-xs mb-4">
                     {project.desiredLength}
                   </p>
                 </>
@@ -106,15 +106,17 @@ const ProjectDetails = (props) => {
               <h2 className="sm:text-lg text-sm text-violet-600 mb-1">
                 Deadline
               </h2>
-              <p className="sm:text-[0.938rem] text-xs mb-4">
+              <p className="sm:text-[0.938rem] text-slate-500 leading-6 text-xs mb-4">
                 {formatDate(project.deadline)}
               </p>
               <h2 className="sm:text-lg text-sm text-violet-600 mb-1">
                 Contact Information
               </h2>
-              <p className="sm:text-[0.938rem] text-xs">{user?.email}</p>
+              <p className="sm:text-[0.938rem] text-slate-500 leading-6 text-xs">
+                {user?.email}
+              </p>
               {project.phone && (
-                <p className="sm:text-[0.938rem] text-xs mt-1">
+                <p className="sm:text-[0.938rem] text-slate-500 leading-6 text-xs mt-1">
                   {project.phone}
                 </p>
               )}
@@ -129,38 +131,44 @@ const ProjectDetails = (props) => {
     );
   } else {
     return (
-      <div className="w-2/3 h-full shadow-[4px_4px_22.2px_2px_rgba(0,0,0,0.25)] rounded-xl p-10 overflow-x-scroll">
+      <div className="sm:w-2/3 w-11/12 sm:h-full h-full shadow-[4px_4px_22.2px_2px_rgba(0,0,0,0.25)] rounded-xl sm:p-10 p-5 relative">
         {job ? (
           <>
-            <h1 className="text-3xl font-semibold mb-7 text-slate-600 break-words">
-              {job?.title}
-            </h1>
-            <h2 className="sm:text-lg text-sm text-violet-600 mb-1">
-              Description
-            </h2>
-            <p className="sm:text-[0.938rem] text-xs mb-4 break-words">
-              {job?.description}
-            </p>
-            {job?.desiredLength && (
-              <>
-                <h2 className="sm:text-lg text-sm text-violet-600 mb-1">
-                  Desired Length
-                </h2>
-                <p className="sm:text-[0.938rem] text-xs mb-4">
-                  {job?.desiredLength}
-                </p>
-              </>
-            )}
-            <h2 className="sm:text-lg text-sm text-violet-600 mb-1">
-              Deadline
-            </h2>
-            <p className="sm:text-[0.938rem] text-xs mb-4">{job?.deadline}</p>
-            <button
-              className="border-2 bg-gradient-to-r from-red-600 to-red-400 py-2 px-4 rounded-full text-white font-bold absolute bottom-12 right-12"
-              onClick={() => quitJob(job._id)}
-            >
-              Quit Job
-            </button>
+            <div className="absolute bottom-3 right-3 z-10">
+              <button
+                className="border-2 bg-gradient-to-r from-red-600 to-red-400 py-2 px-4 rounded-full text-white font-bold"
+                onClick={() => quitJob(job._id)}
+              >
+                Quit Job
+              </button>
+            </div>
+            <div className="sm:h-[91%] h-[94%] w-11/12 absolute overflow-y-scroll pb-10">
+              <h1 className="text-3xl font-semibold mb-7 text-slate-600 break-words">
+                {job?.title}
+              </h1>
+              <h2 className="sm:text-lg text-sm text-violet-600 mb-1">
+                Description
+              </h2>
+              <p className="sm:text-[0.938rem] text-slate-500 leading-6 text-xs mb-4 break-words">
+                {job?.description}
+              </p>
+              {job?.desiredLength && (
+                <>
+                  <h2 className="sm:text-lg text-sm text-violet-600 mb-1">
+                    Desired Length
+                  </h2>
+                  <p className="sm:text-[0.938rem] text-slate-500 leading-6 text-xs mb-4">
+                    {job?.desiredLength}
+                  </p>
+                </>
+              )}
+              <h2 className="sm:text-lg text-sm text-violet-600 mb-1">
+                Deadline
+              </h2>
+              <p className="sm:text-[0.938rem] text-slate-500 leading-6 text-xs mb-4">
+                {job?.deadline}
+              </p>
+            </div>
           </>
         ) : (
           <h1 className="flex justify-center items-center w-full h-full text-lg font-semibold text-slate-500">

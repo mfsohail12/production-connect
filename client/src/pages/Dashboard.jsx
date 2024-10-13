@@ -28,8 +28,8 @@ const Dashboard = () => {
         </div>
       ) : (
         <JobProvider>
-          <div className="w-[95%] h-[95%] mx-auto flex items-center gap-10">
-            <span className="w-1/3 flex flex-col gap-7 justify-center">
+          <div className="sm:w-[95%] sm:h-[95%] w-full h-[1000px] mx-auto flex sm:flex-row flex-col items-center sm:gap-10 gap-6 pb-10">
+            <span className="sm:w-1/3 w-11/12 flex flex-col sm:gap-7 gap-6 justify-center">
               <CurrentJob />
               <ClientDetails />
             </span>

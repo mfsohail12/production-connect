@@ -81,7 +81,7 @@ const EditProject = () => {
   return (
     <div className="pt-24">
       <form
-        className=" w-[1000px] mx-auto flex flex-col gap-6"
+        className="sm:w-[62.5rem] w-screen px-6 sm:pb-0 pb-6 mx-auto flex flex-col gap-6"
         onSubmit={editProject}
       >
         <label className="text-3xl font-bold text-slate-600">
@@ -106,7 +106,7 @@ const EditProject = () => {
           />
         </label>
 
-        <span className="flex justify-between w-full">
+        <span className="flex sm:flex-row flex-col sm:gap-0 gap-3 justify-between w-full">
           <label className="font-semibold text-slate-600">
             Desired Length
             <select
@@ -146,7 +146,7 @@ const EditProject = () => {
             />
           </label>
         </span>
-        <span className="mt-5 flex w-full gap-7">
+        <span className="sm:mt-5 mt-2 flex w-full sm:gap-7 gap-3">
           <button
             className="border-2 w-1/3 shrink bg-gradient-to-r from-red-600 to-red-400 p-2 rounded-full text-white font-bold"
             onClick={() => navigate("/dashboard")}
