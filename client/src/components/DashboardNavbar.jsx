@@ -1,10 +1,10 @@
 import defaultAvatar from "../assets/default-avatar.jpg";
 import { FaPlus } from "react-icons/fa";
-import { IoNotifications } from "react-icons/io5";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { UserContext } from "../context/userContext";
+import { ImSpinner8 } from "react-icons/im";
 
 const DashboardNavbar = () => {
   const navigate = useNavigate();
@@ -21,25 +21,27 @@ const DashboardNavbar = () => {
   return (
     <>
       <nav className="w-screen h-[70px] bg-violet-600 flex px-6 items-center shadow-[0_5px_12.7px_3px_rgba(0,0,0,0.25)] fixed top-0 z-10">
-        <button
-          id="profile"
-          className="h-[50px] flex items-center cursor-pointer"
-          onClick={() => setShowProfileDropdown((prev) => !prev)}
-        >
-          <img
-            src={defaultAvatar}
-            className="w-[45px] h-[45px] rounded-sm object-cover"
-          />
-          <p className="text-white text-sm font-bold ml-3">
-            {user.firstName} {user.lastName}
-          </p>
-          <IoMdArrowDropdown className="text-3xl text-white ml-2 self-center"></IoMdArrowDropdown>
-        </button>
-        {/* <IoNotifications
-          id="notification-bell"
-          className="text-3xl text-white ml-6 cursor-pointer"
-        /> */}
-        {user.accountType === "client" && (
+        {user ? (
+          <button
+            id="profile"
+            className="h-[50px] flex items-center cursor-pointer"
+            onClick={() => setShowProfileDropdown((prev) => !prev)}
+          >
+            <img
+              src={defaultAvatar}
+              className="w-[45px] h-[45px] rounded-sm object-cover"
+            />
+            <p className="text-white text-sm font-bold ml-3">
+              {user.firstName} {user.lastName}
+            </p>
+            <IoMdArrowDropdown className="text-3xl text-white ml-2 self-center"></IoMdArrowDropdown>
+          </button>
+        ) : (
+          <div className="flex justify-center items-center">
+            <ImSpinner8 className="animate-spin h-[30px] w-[160px] cursor-pointer text-white" />
+          </div>
+        )}
+        {user && user.accountType === "client" && (
           <button
             className="w-44 h-[40px] ml-auto rounded-lg bg-white flex justify-center items-center gap-5"
             onClick={() => navigate("create-project")}

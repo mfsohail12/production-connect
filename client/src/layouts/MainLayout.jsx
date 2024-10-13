@@ -6,10 +6,11 @@ import { UserContext } from "../context/userContext";
 
 const MainLayout = () => {
   const { user } = useContext(UserContext);
+  const token = localStorage.getItem("token");
 
   return (
     <>
-      {user ? <DashboardNavbar /> : <PublicNavbar />}
+      {token ? <DashboardNavbar /> : <PublicNavbar />}
       <Outlet />
     </>
   );

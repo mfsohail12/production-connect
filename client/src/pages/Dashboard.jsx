@@ -5,6 +5,7 @@ import ProjectDetails from "../components/ProjectDetails";
 import CurrentJob from "../components/CurrentJob";
 import ClientDetails from "../components/ClientDetails";
 import { JobProvider } from "../context/jobContext";
+import { ImSpinner8 } from "react-icons/im";
 
 const Dashboard = () => {
   const { user } = useContext(UserContext);
@@ -12,8 +13,8 @@ const Dashboard = () => {
 
   if (user === null) {
     return (
-      <div className="flex justify-center items-center text-3xl font-bold h-screen opacity-50">
-        Loading ...
+      <div className="h-screen w-screen flex justify-center items-center">
+        <ImSpinner8 className="animate-spin cursor-pointe text-5xl text-violet-600" />
       </div>
     );
   }
