@@ -95,7 +95,7 @@ const AccountSettings = () => {
   }
 
   return (
-    <div className="sm:mt-14 mt-28 flex flex-col justify-center items-center h-screen">
+    <div className="sm:mt-30 mt-28 flex flex-col items-center h-screen">
       <div className="sm:w-[37.5rem] w-[20rem] bg-slate-100 rounded-3xl p-6">
         <h1 className="text-2xl font-bold text-violet-600 mb-5">
           Edit Profile
