@@ -9,7 +9,7 @@ export function ProjectsProvider({ children }) {
 
   useEffect(() => {
     axios.get("/projects").then(({ data }) => {
-      setProjects(JSON.parse(data));
+      setProjects(data);
     });
   }, [projectReload]);
 
