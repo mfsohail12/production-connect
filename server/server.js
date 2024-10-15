@@ -2,11 +2,14 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
-const dotenv = require("dotenv").config();
+const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
+const cookieSession = require("cookie-session");
 const auth = require("./routes/authRoutes");
 const project = require("./routes/projectRoutes");
 const job = require("./routes/jobRoutes");
+
+dotenv.config();
 
 // Database connection
 mongoose
@@ -18,12 +21,21 @@ mongoose
 
 // middleware
 app.use(express.json());
-app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 app.use(
   cors({
     credentials: true,
-    origin: "https://production-connect.vercel.app",
+    origin: process.env.FRONTEND_URL,
+  })
+);
+app.use(cookieParser());
+app.use(
+  cookieSession({
+    name: "session",
+    maxAge: 24 * 60 * 60 * 1000,
+    sameSite: "none",
+    secret: process.env.COOKIE_SECRET,
+    secureProxy: true,
   })
 );
 
