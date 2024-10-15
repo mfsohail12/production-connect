@@ -1,7 +1,6 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const port = 8000;
 const mongoose = require("mongoose");
 const dotenv = require("dotenv").config();
 const cookieParser = require("cookie-parser");
@@ -31,6 +30,6 @@ app.use(
 // Routing
 app.use("/", auth, project, job);
 
-app.listen(port, () => {
-  console.log(`server is running on port ${port}`);
+app.listen(process.env.PORT, () => {
+  console.log(`server is running on port ${process.env.PORT}`);
 });
