@@ -2,7 +2,7 @@ import axios from "axios";
 import { UserProvider } from "./context/userContext";
 import AppRouter from "./routes/AppRouter";
 
-axios.defaults.baseURL = "http://localhost:8000";
+axios.defaults.baseURL = "https://production-connect.onrender.com";
 axios.defaults.withCredentials = true;
 
 function App() {
