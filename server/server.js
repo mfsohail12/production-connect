@@ -23,7 +23,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(
   cors({
     credentials: true,
-    origin: "https://production-connect-0.vercel.app",
+    origin: "https://production-connect.vercel.app",
   })
 );
 
