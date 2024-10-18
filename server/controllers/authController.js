@@ -75,7 +75,9 @@ const loginUser = async (req, res) => {
         {},
         (err, token) => {
           if (err) throw err;
-          res.cookie("token", token).json({ user, token });
+          res
+            .cookie("token", token, { sameSite: "None", secure: true })
+            .json({ user, token });
         }
       );
     } else {
