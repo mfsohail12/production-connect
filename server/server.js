@@ -33,7 +33,7 @@ app.use(
   cookieSession({
     name: "session",
     maxAge: 24 * 60 * 60 * 1000,
-    sameSite: "none",
+    sameSite: "None",
     secret: process.env.COOKIE_SECRET,
     secureProxy: true,
   })
