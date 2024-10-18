@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { UserContext } from "../context/userContext";
 import { handleChange } from "../helpers/formHelper";
 import logo from "../assets/logo.svg";
+import { ImSpinner8 } from "react-icons/im";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -13,9 +14,11 @@ const LoginPage = () => {
     password: "",
   });
   const { setUser } = useContext(UserContext);
+  const [loggingIn, setLoggingIn] = useState(false);
 
   const loginUser = async (event) => {
     event.preventDefault();
+    setLoggingIn(true);
 
     const { email, password } = loginData;
 
@@ -27,11 +30,13 @@ const LoginPage = () => {
 
       if (data.error) {
         toast.error(data.error);
+        setLoggingIn(false);
       } else {
         localStorage.setItem("token", data.token);
         toast.success(
           `Logged in successfully. Welcome ${data.user.firstName}!`
         );
+        setLoggingIn(false);
         setUser(data.user);
         navigate("/dashboard");
       }
@@ -88,7 +93,11 @@ const LoginPage = () => {
             type="submit"
             className="w-full mt-2 sm:h-9 h-7 bg-violet-600 rounded-lg text-white font-bold"
           >
-            Login
+            {loggingIn ? (
+              <ImSpinner8 className="animate-spin text-md font-bold text-white mx-auto" />
+            ) : (
+              "Login"
+            )}
           </button>
         </form>
         <p className="sm:text-sm text-xs sm:mt-6 mt-7">

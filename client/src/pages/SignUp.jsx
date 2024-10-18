@@ -4,6 +4,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { handleChange } from "../helpers/formHelper";
 import logo from "../assets/logo.svg";
+import { ImSpinner8 } from "react-icons/im";
 
 const SignUpPage = () => {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ const SignUpPage = () => {
     password: "",
     confirmPassword: "",
   });
+  const [signingUp, setSigningUp] = useState(false);
 
   // Handles activating account type button
   const activateBtn = (event) => {
@@ -76,10 +78,11 @@ const SignUpPage = () => {
   // Registers user when sign up button is clicked
   const registerUser = async (event) => {
     event.preventDefault();
-
     if (!isValid(formData)) {
       return;
     }
+
+    setSigningUp(true);
 
     const { accountType, firstName, lastName, email, password } = formData;
 
@@ -94,8 +97,10 @@ const SignUpPage = () => {
 
       if (data.error) {
         toast.error(data.error);
+        setSigningUp(false);
       } else {
         toast.success("Account created successfully. Please login");
+        setSigningUp(false);
         navigate("/login");
       }
     } catch (error) {
@@ -210,7 +215,11 @@ const SignUpPage = () => {
             type="submit"
             className="w-full sm:mt-5 mt-3 h-9 bg-violet-600 rounded-lg text-white font-bold"
           >
-            Sign up
+            {signingUp ? (
+              <ImSpinner8 className="animate-spin text-md font-bold text-white mx-auto" />
+            ) : (
+              "Sign up"
+            )}
           </button>
         </form>
         <p className="sm:text-sm text-xs mt-5">
