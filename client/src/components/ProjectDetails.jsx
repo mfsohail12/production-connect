@@ -9,7 +9,6 @@ import EditorDetails from "./EditorDetails";
 const ProjectDetails = (props) => {
   const { user, setUserReload } = useContext(UserContext);
   const { projects, setProjectReload } = useContext(ProjectContext);
-  console.log(projects);
   const project = projects.find((project) => project._id === props.active);
   const { job, setReloadJob } = useContext(JobContext);
   const [showEditor, setShowEditor] = useState(false);
