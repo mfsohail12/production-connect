@@ -41,6 +41,9 @@ const LoginPage = () => {
         navigate("/dashboard");
       }
     } catch (error) {
+      if (error.name == "AbortError") {
+        toast.error("Request aborted. Please try again in a few seconds.");
+      }
       console.log(error);
     }
   };
@@ -52,9 +55,6 @@ const LoginPage = () => {
         className="sm:w-96 w-72 sm:h-[24rem] h-[22rem] shadow-lg flex flex-col items-center bg-white"
       >
         <Link to="/">
-          {/* <h1 className="text-violet-600 text-2xl font-bold mt-9">
-            Production Connect
-          </h1> */}
           <img
             src={logo}
             alt="production connect logo"

@@ -5,18 +5,12 @@ import { useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { UserContext } from "../context/userContext";
 import { ImSpinner8 } from "react-icons/im";
+import { logoutUser } from "../helpers/logoutHelper";
 
 const DashboardNavbar = () => {
   const navigate = useNavigate();
   const { user, setUser } = useContext(UserContext);
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
-
-  const logoutUser = () => {
-    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    localStorage.removeItem("token");
-    setUser(null);
-    navigate("/");
-  };
 
   return (
     <>
@@ -69,7 +63,10 @@ const DashboardNavbar = () => {
           </button>
           <button
             className="text-slate-600 w-full h-8 hover:bg-violet-100 hover:text-violet-500"
-            onClick={logoutUser}
+            onClick={() => {
+              logoutUser(setUser);
+              navigate("/");
+            }}
           >
             Logout
           </button>

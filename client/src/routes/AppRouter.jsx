@@ -18,12 +18,13 @@ import ChangePassword from "../pages/ChangePassword";
 import { ProjectsProvider } from "../context/projectContext";
 import Protected from "./Protected";
 import { isAuthenticated } from "./Helpers";
+import ErrorPage from "../pages/ErrorPage";
 
 const AppRouter = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
-        <Route path="/" element={<MainLayout />}>
+        <Route path="/" element={<MainLayout />} errorElement={<ErrorPage />}>
           <Route
             index
             element={<Home />}
