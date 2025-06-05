@@ -1,15 +1,24 @@
 import { Link } from "react-router-dom";
-import background from "../assets/pexels-pixabay-257904.jpg";
+import backgroundImage from "../assets/background.jpg";
+import { motion } from "motion/react";
 
 const Hero = () => {
   return (
-    <div className="text-white relative">
-      <img
+    <div
+      className="text-white relative bg-cover"
+      style={{ backgroundImage: `url(${backgroundImage})` }}
+    >
+      {/* <img
         src={background}
         alt="Video editing software"
         className="absolute w-screen h-screen object-cover brightness-50 -z-10"
-      />
-      <div className="flex flex-col justify-center h-screen ml-8">
+      /> */}
+      <motion.div
+        className="flex flex-col justify-center h-screen ml-8"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ type: "spring" }}
+      >
         <h1 className="sm:text-4xl text-xl font-bold sm:mb-5 mb-3">
           Connect with Top Editors Effortlessly
         </h1>
@@ -24,7 +33,7 @@ const Hero = () => {
         >
           Get Started
         </Link>
-      </div>
+      </motion.div>
     </div>
   );
 };

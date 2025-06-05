@@ -10,7 +10,7 @@ const HomePage = () => {
         <Link to="https://github.com/mfsohail12/production-connect">
           <FaGithub className="text-violet-600 text-xl" />
         </Link>
-        <p className="text-white text-xs ml-auto">© 2024</p>
+        <p className="text-white text-xs ml-auto">© 2025</p>
       </footer>
     </>
   );
