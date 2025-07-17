@@ -9,7 +9,6 @@ export function ProjectsProvider({ children }) {
 
   useEffect(() => {
     axios.get("/projects").then(({ data }) => {
-      console.log(data);
       setProjects(data);
     });
   }, [projectReload]);
