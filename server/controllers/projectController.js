@@ -1,11 +1,11 @@
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 const Project = require("../models/project");
+const { getToken } = require("../helpers/auth");
 
 const createProject = async (req, res) => {
   const projectDetails = req.body;
-  const { token } = req.cookies;
-
+  const token = getToken(req);
   // Obtains user data from json web token
   const user = jwt.verify(token, process.env.JWT_SECRET, {}, (err, user) => {
     if (err) throw err;
@@ -80,7 +80,7 @@ const deleteProject = async (req, res) => {
 };
 
 const getProjects = async (req, res) => {
-  const { token } = req.cookies;
+  const token = getToken(req);
 
   const user = jwt.verify(token, process.env.JWT_SECRET, {}, (err, user) => {
     if (err) throw err;

@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const Project = require("../models/project");
 const User = require("../models/user");
+const { getToken } = require("../helpers/auth");
 
 const activateEditor = async (req, res) => {
   const { userId } = req.body;
@@ -41,7 +42,7 @@ const assignEditor = async (req, res) => {
 };
 
 const getJob = async (req, res) => {
-  const { token } = req.cookies;
+  const token = getToken(req);
 
   const user = jwt.verify(token, process.env.JWT_SECRET, {}, (err, user) => {
     if (err) throw err;

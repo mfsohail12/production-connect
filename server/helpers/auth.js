@@ -20,8 +20,16 @@ const toNameCase = (name) => {
   return nameArr.join("");
 };
 
+const getToken = (req) => {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+
+  return token;
+};
+
 module.exports = {
   hashPassword,
   comparePassword,
   toNameCase,
+  getToken,
 };

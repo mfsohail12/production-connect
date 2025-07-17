@@ -33,6 +33,8 @@ const LoginPage = () => {
         setLoggingIn(false);
       } else {
         localStorage.setItem("token", data.token);
+        axios.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
+
         toast.success(
           `Logged in successfully. Welcome ${data.user.firstName}!`
         );

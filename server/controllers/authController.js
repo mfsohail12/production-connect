@@ -4,6 +4,7 @@ const {
   hashPassword,
   comparePassword,
   toNameCase,
+  getToken,
 } = require("../helpers/auth");
 const jwt = require("jsonwebtoken");
 
@@ -75,9 +76,7 @@ const loginUser = async (req, res) => {
         {},
         (err, token) => {
           if (err) throw err;
-          res
-            .cookie("token", token, { sameSite: "None", secure: true })
-            .json({ user, token });
+          res.json({ user, token });
         }
       );
     } else {
@@ -91,7 +90,7 @@ const loginUser = async (req, res) => {
 };
 
 const getProfile = async (req, res) => {
-  const { token } = req.cookies;
+  const token = getToken(req);
   if (token) {
     const user = jwt.verify(token, process.env.JWT_SECRET, {}, (err, user) => {
       if (err) throw err;
@@ -111,7 +110,7 @@ const getProfile = async (req, res) => {
 
 const updateProfile = async (req, res) => {
   const { _id, firstName, lastName, email } = req.body;
-  const { token } = req.cookies;
+  const token = getToken(req);
 
   const user = jwt.verify(token, process.env.JWT_SECRET, {}, (err, user) => {
     if (err) throw err;
