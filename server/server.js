@@ -35,7 +35,8 @@ app.use(
     maxAge: 24 * 60 * 60 * 1000,
     sameSite: "None",
     secret: process.env.COOKIE_SECRET,
-    secureProxy: true,
+    secure: true,
+    httpOnly: true,
   })
 );
 
