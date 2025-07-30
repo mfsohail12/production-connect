@@ -1,106 +1,37 @@
-const User = require("../models/user");
-const jwt = require("jsonwebtoken");
-const Project = require("../models/project");
-const { getToken } = require("../helpers/auth");
+const Project = require('../models/project');
 
-const createProject = async (req, res) => {
-  const projectDetails = req.body;
-  const token = getToken(req);
-  // Obtains user data from json web token
-  const user = jwt.verify(token, process.env.JWT_SECRET, {}, (err, user) => {
-    if (err) throw err;
-    return user;
-  });
-
-  // Verifies account type is 'client'
-  if (user.accountType === "editor") {
-    res.json({
-      error:
-        "Editors are not allowed to create projects. Please create a client account to create projects",
-    });
-  }
-
+// Edit project: only owner can edit
+exports.editProject = async (req, res) => {
   try {
-    // Creates project in database
-    await Project.create({
-      owner: {
-        _id: user.id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-      },
-      ...projectDetails,
-    });
+    const project = await Project.findById(req.params.id);
+    if (!project) return res.status(404).json({ message: 'Not found' });
 
-    res.status(201).send();
-  } catch (error) {
-    console.log(error);
-    res.json({ error: "Error: Project was not created" });
+    // Ownership check
+    if (project.owner.toString() !== req.user.id) {
+      return res.status(403).json({ message: 'Forbidden' });
+    }
+
+    Object.assign(project, req.body);
+    await project.save();
+    res.json(project);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
   }
 };
 
-const editProject = async (req, res) => {
-  const { projectId, title, description, desiredLength, deadline, phone } =
-    req.body;
-
+// Delete project: only owner
+exports.deleteProject = async (req, res) => {
   try {
-    await Project.findOneAndUpdate(
-      { _id: projectId },
-      {
-        title,
-        description,
-        desiredLength,
-        deadline,
-        phone,
-      }
-    );
-
-    res.status(200).send();
-  } catch (error) {
-    console.log(error);
-    res.json({ error: "Error: Project was not updated" });
+    const project = await Project.findById(req.params.id);
+    if (!project) return res.status(404).json({ message: 'Not found' });
+    if (project.owner.toString() !== req.user.id) {
+      return res.status(403).json({ message: 'Forbidden' });
+    }
+    await project.remove();
+    res.json({ message: 'Deleted' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
   }
-};
-
-const deleteProject = async (req, res) => {
-  const { projectId } = req.body;
-
-  try {
-    const project = await Project.findOneAndDelete({ _id: projectId });
-    const editor = await User.findByIdAndUpdate(project.videoEditor, {
-      working: false,
-      active: false,
-    });
-
-    res.status(200).send();
-  } catch (error) {
-    console.log(error);
-    res.json({ error: "Error: Project was not deleted" });
-  }
-};
-
-const getProjects = async (req, res) => {
-  const token = getToken(req);
-
-  const user = jwt.verify(token, process.env.JWT_SECRET, {}, (err, user) => {
-    if (err) throw err;
-    return user;
-  });
-
-  try {
-    const projects = await Project.find({
-      "owner._id": user.id,
-    });
-
-    res.json(projects);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-module.exports = {
-  createProject,
-  getProjects,
-  editProject,
-  deleteProject,
 };
