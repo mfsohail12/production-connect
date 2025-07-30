@@ -1,48 +1,23 @@
-const express = require("express");
+const express = require('express');
 const app = express();
-const cors = require("cors");
-const mongoose = require("mongoose");
-const dotenv = require("dotenv");
-const cookieParser = require("cookie-parser");
-const cookieSession = require("cookie-session");
-const auth = require("./routes/authRoutes");
-const project = require("./routes/projectRoutes");
-const job = require("./routes/jobRoutes");
+const authRoutes = require('./routes/authRoutes');
+const jobRoutes = require('./routes/jobRoutes');
+const projectRoutes = require('./routes/projectRoutes');
 
-dotenv.config();
-
-// Database connection
-mongoose
-  .connect(process.env.MONGO_URL)
-  .then(() => {
-    console.log("database connected successfully");
-  })
-  .catch((error) => console.log("database not connected", error));
-
-// middleware
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(
-  cors({
-    credentials: true,
-    origin: process.env.FRONTEND_URL,
-  })
-);
-app.use(cookieParser());
-app.use(
-  cookieSession({
-    name: "session",
-    maxAge: 24 * 60 * 60 * 1000,
-    sameSite: "None",
-    secret: process.env.COOKIE_SECRET,
-    secure: true,
-    httpOnly: true,
-  })
-);
 
-// Routing
-app.use("/", auth, project, job);
+// Public routes
+app.use('/auth', authRoutes);
 
-app.listen(process.env.PORT, () => {
-  console.log(`server is running on port ${process.env.PORT}`);
+// Protected API
+app.use('/api/jobs', jobRoutes);
+app.use('/api/projects', projectRoutes);
+
+// Global error handler
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ message: 'Unexpected error' });
 });
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on ${PORT}`));
