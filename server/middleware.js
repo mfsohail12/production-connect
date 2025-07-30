@@ -1,24 +1,15 @@
-const jwt = require("jsonwebtoken");
+const { verifyToken } = require('./helpers/auth');
 
-const auth = (req, res, next) => {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
+exports.auth = (req, res, next) => {
+  try {
+    const authHeader = req.headers.authorization;
+    if (!authHeader) return res.status(401).json({ message: 'No auth header' });
 
-  if (!token) return res.json({ error: "No authorization token was provided" });
-
-  const userAuthenticated = jwt.verify(token, process.env.JWT_SECRET, (err) => {
-    if (err) {
-      return false;
-    } else {
-      return true;
-    }
-  });
-
-  if (userAuthenticated) {
+    const payload = verifyToken(authHeader);
+    req.user = { id: payload.id, role: payload.role };
     next();
-  } else {
-    return res.json({ error: "You are not authorized to do this" });
+  } catch (err) {
+    console.error(err);
+    return res.status(401).json({ message: 'Unauthorized' });
   }
 };
-
-module.exports = { auth };
