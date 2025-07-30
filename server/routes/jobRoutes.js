@@ -1,19 +1,12 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const {
-  activateEditor,
-  assignEditor,
-  getJob,
-  quitJob,
-} = require("../controllers/jobController");
-const { auth } = require("../middleware");
+const { auth } = require('../middleware');
+const jobController = require('../controllers/jobController');
 
+// All routes require authentication
 router.use(auth);
-
-// Sets editor active status to true to indicate they are looking for work
-router.put("/activate-editor", activateEditor);
-router.put("/assign-editor", assignEditor);
-router.put("/quit-job", quitJob);
-router.get("/job", getJob);
+router.post('/', jobController.createJob);
+router.put('/:id/assign', jobController.assignEditor);
+router.post('/:id/quit', jobController.quitJob);
 
 module.exports = router;

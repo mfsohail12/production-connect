@@ -1,81 +1,26 @@
-const jwt = require("jsonwebtoken");
-const Project = require("../models/project");
-const User = require("../models/user");
-const { getToken } = require("../helpers/auth");
+const Job = require('../models/job');
 
-const activateEditor = async (req, res) => {
-  const { userId } = req.body;
-
-  try {
-    await User.findByIdAndUpdate(userId, { active: true });
-
-    res.status(200).send();
-  } catch (error) {
-    console.log(error);
+// Example: assign editor to job: only admin can assign editors
+exports.assignEditor = async (req, res) => {
+  if (req.user.role !== 'admin') {
+    return res.status(403).json({ message: 'Admin access required' });
   }
+  // Safe update
+  const job = await Job.findById(req.params.id);
+  if (!job) return res.status(404).json({ message: 'Job not found' });
+  job.editor = req.body.editorId;
+  await job.save();
+  res.json(job);
 };
 
-const assignEditor = async (req, res) => {
-  const { projectId } = req.body;
-
-  try {
-    const editor = await User.findOne({ active: true, working: false });
-    if (!editor) {
-      return res.json({ error: "There are no editors currently available" });
-    }
-
-    await Project.findByIdAndUpdate(projectId, {
-      videoEditor: {
-        _id: editor._id,
-        firstName: editor.firstName,
-        lastName: editor.lastName,
-        email: editor.email,
-      },
-    });
-    await User.findByIdAndUpdate(editor._id, { working: true });
-
-    res.status(200).send();
-  } catch (error) {
-    console.log(error);
-    res.json({ error: "Error: Unable to connect you with an editor" });
+// Quit job: user must be assigned editor
+exports.quitJob = async (req, res) => {
+  const job = await Job.findById(req.params.id);
+  if (!job) return res.status(404).json({ message: 'Job not found' });
+  if (job.editor.toString() !== req.user.id && req.user.role !== 'admin') {
+    return res.status(403).json({ message: 'Not assigned editor' });
   }
+  job.editor = null;
+  await job.save();
+  res.json({ message: 'Quit successful' });
 };
-
-const getJob = async (req, res) => {
-  const token = getToken(req);
-
-  const user = jwt.verify(token, process.env.JWT_SECRET, {}, (err, user) => {
-    if (err) throw err;
-    return user;
-  });
-
-  try {
-    const project = await Project.findOne({ "videoEditor._id": user.id });
-
-    res.send(project);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-const quitJob = async (req, res) => {
-  const { projectId } = req.body;
-
-  try {
-    const project = await Project.findByIdAndUpdate(projectId, {
-      $unset: { videoEditor: "" },
-    });
-
-    await User.findByIdAndUpdate(project.videoEditor._id, {
-      active: false,
-      working: false,
-    });
-
-    res.status(200).send();
-  } catch (error) {
-    console.log(error);
-    res.json({ error: "Error: Unable to quit job" });
-  }
-};
-
-module.exports = { activateEditor, assignEditor, getJob, quitJob };

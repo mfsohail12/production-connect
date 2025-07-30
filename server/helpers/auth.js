@@ -1,35 +1,23 @@
-const bcrypt = require("bcrypt");
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
-const hashPassword = async (password) => {
-  try {
-    const salt = await bcrypt.genSalt();
-    const hashedPassword = await bcrypt.hash(password, salt);
-    return hashedPassword;
-  } catch (error) {
-    console.log(error);
+exports.generateToken = (user) => {
+  return jwt.sign(
+    { id: user._id, role: user.role },
+    process.env.JWT_SECRET,
+    { expiresIn: '1h' }
+  );
+};
+
+exports.verifyToken = (token) => {
+  if (!/^Bearer\s+[A-Za-z0-9\-_.]+\.[A-Za-z0-9\-_.]+\.[A-Za-z0-9\-_.]+$/.test(token)) {
+    throw new Error('Invalid token format');
   }
+  const realToken = token.split(' ')[1];
+  return jwt.verify(realToken, process.env.JWT_SECRET);
 };
 
-const comparePassword = async (password, hashed) => {
-  return await bcrypt.compare(password, hashed);
-};
-
-const toNameCase = (name) => {
-  const nameArr = name.toLowerCase().split("");
-  nameArr[0] = nameArr[0].toUpperCase();
-  return nameArr.join("");
-};
-
-const getToken = (req) => {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
-
-  return token;
-};
-
-module.exports = {
-  hashPassword,
-  comparePassword,
-  toNameCase,
-  getToken,
+exports.hashPassword = async (plain) => {
+  const salt = await bcrypt.genSalt(12);
+  return bcrypt.hash(plain, salt);
 };

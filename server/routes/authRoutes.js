@@ -1,23 +1,12 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const {
-  registerUser,
-  loginUser,
-  getProfile,
-  updateProfile,
-  updatePassword,
-  deleteAccount,
-} = require("../controllers/authController");
-const { auth } = require("../middleware");
+const { auth } = require('../middleware');
+const authController = require('../controllers/authController');
 
-router.get("/", (req, res) => {
-  res.send("this is server");
-});
-router.post("/signup", registerUser);
-router.post("/login", loginUser);
-router.get("/profile", getProfile);
-router.put("/update-profile", auth, updateProfile);
-router.put("/update-password", auth, updatePassword);
-router.delete("/delete-account", deleteAccount);
+router.post('/login', authController.login);
+router.post('/register', authController.register);
+
+// Protect delete account
+router.delete('/delete', auth, authController.deleteAccount);
 
 module.exports = router;
